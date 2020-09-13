@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <ul class="slider">
-            <li v-for="(img, index) in imgs" :key="index" :style="{backgroundImage: img.url}">
+            <li v-for="(img, index) in imgs" :key="index" :style="{backgroundImage: img.url}" v-show="showNum == index">
                 <h1>{{ img.title }}</h1>
             </li>
         </ul>
@@ -13,7 +13,21 @@ export default {
     data() {
         return {
             imgs: [{title: '好 好 学 习', url: 'url(' + require('../assets/blue.jpg') + ')'}, 
-                {title: '天 天 向 上', url: 'url(' + require('../assets/green.jpg') + ')'}]
+                {title: '天 天 向 上', url: 'url(' + require('../assets/green.jpg') + ')'}],
+            showNum: 0
+        }
+    },
+    created() {
+        //DOM加载完成后，下个tick中开始轮播
+        // this.$nextTick(() => {
+            setInterval(this.play(), 500);
+        // })
+    },
+    methods: {
+        play() {
+            this.showNum++;
+            this.showNum = this.showNum % this.imgs.length;
+            console.log(this.showNum)
         }
     }
 }
@@ -21,13 +35,14 @@ export default {
 
 <style lang="scss">
     .slider {
-        width: 200%;
+        width: 100%;
+        height: 400px;
         li {
-            width: 50%;
+            width: 100%;
             height: 400px;
             background: center center 100% 100%;
-            float: left;
-            position: relative;
+            // float: left;
+            // position: relative;
             h1 {
                 font-weight: normal;
                 text-align: center;
