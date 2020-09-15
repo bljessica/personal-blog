@@ -1,8 +1,10 @@
 <template>
-    <div class="container">
+    <div id="container">
         <nav-header :navItems="navItems" :title="title"></nav-header>
-        <main>
-            <slider></slider>
+        <main id="main">
+            <ul class="aside">
+                <li v-for="(item, index) in kinds" :key="index">{{ item }}</li>
+            </ul>
         </main>
         <footer></footer>
     </div>
@@ -10,23 +12,34 @@
 
 <script>
 import navHeader from '../components/nav-header'
-import slider from '../components/slider'
+import { NAV_ITEMS, TITLE, BLOG_KINDS } from '../consts/const'
 
 export default {
     data() {
         return {
-            navItems: ['主页', '发现', '我的关注', '我的收藏', '个人中心'],
-            title: 'My Blog',
-            // imgs: ['require("../assets/blue.jpg")', 'require("../assets/green.jpg")']
+            navItems: NAV_ITEMS,
+            title: TITLE,
+            kinds: BLOG_KINDS
         }
     },
     components: {
-        navHeader,
-        slider
+        navHeader
     }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    .aside {
+        // margin-top: 30px;
+        width: 230px;
+        height: 500px;
+        border-right: 2px solid gainsboro;
+        li {
+            width: 230px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            // border-bottom: 1px solid gainsboro;
+        }
+    }
 </style>
