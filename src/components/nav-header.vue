@@ -1,26 +1,23 @@
 <template>
-    <div class="container">
-        <div class="header">
-            <div class="title">
-                <a href="">
-                    <i class="iconfont icon-custom-logo"></i>
-                    <span>{{ title }}</span>
-                </a>
-            </div>
-            <ul class="nav">
-                <li v-for="(item, index) in navItems" :key="index">
-                    <a href="">
-                        <i class="iconfont" :class="icons[index]"></i>
-                        {{ item }}
-                    </a>
-                    <img v-if="index == 2 || index == 3" src="../assets/down.png" alt="">
-                    <!-- <i v-if="index == 2 || index == 3" src="../assets/down.png"> -->
-                </li>
-                <li><i class="iconfont icon-sousuo search"></i></li>
-            </ul>
-            <h1 class="slogan">Learn a little every day</h1>
+    <div class="header">
+        <div class="title">
+            <a href="">
+                <i class="iconfont icon-custom-logo"></i>
+                <span>{{ title }}</span>
+            </a>
         </div>
-    </div>    
+        <ul class="nav">
+            <li v-for="(item, index) in navItems" :key="index">
+                <a href="">
+                    <i class="iconfont" :class="icons[index]"></i>
+                    {{ item }}
+                </a>
+                <img v-if="index == 2 || index == 3" src="../assets/down.png" alt="">
+            </li>
+            <li><i class="iconfont icon-sousuo search"></i></li>
+        </ul>
+        <h1 class="slogan">Learn a little every day</h1>
+    </div>
 </template>
 
 <script>
@@ -66,10 +63,10 @@ export default {
             height: 80px;
             width: 250px;
             line-height: 80px;
-            font-size: 32px;
+            font-size: 30px;
             i {
                 display: inline-block;
-                font-size: 36px;
+                font-size: 34px;
                 margin-right: 10px;
             }
         }
@@ -83,27 +80,27 @@ export default {
                 text-align: center;
                 line-height: 80px;
                 height: 80px;
-                font-size: 18px;
+                font-size: 16px;
                 padding: 0 15px 0 12px;
                 position: relative;
                 cursor: pointer;
                 i {
                     display: inline-block;
-                    font-size: 20px;
+                    font-size: 18px;
                     position: relative;
                     left: 2px;
+                    top: 1px;
                 }
                 img {
-                    width: 18px;
-                    height: 18px;
-                    // position: absolute;
+                    width: 16px;
+                    height: 16px;
                     position: relative;
-                    top: 2px;
+                    top: 3px;
                     margin-left: 3px;
                 }
                 .search {
                     display: inline-block;
-                    font-size: 24px;
+                    font-size: 22px;
                     color: white;
                     position: relative;
                     top: 2px;
@@ -119,8 +116,8 @@ export default {
             width: 100%;
             text-align: center;
             position: absolute;
-            bottom: 50px;
-            font-size: 36px;;
+            bottom: 60px;
+            font-size: 40px;;
         }
     }
     
