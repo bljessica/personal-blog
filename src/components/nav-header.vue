@@ -1,17 +1,30 @@
 <template>
     <div class="container">
         <div class="header">
-            <h1 class="title">{{ title }}</h1>
-            <ul class="navs">
+            <div class="title">
+                <a href="">
+                    <i class="iconfont icon-custom-logo"></i>
+                    <span>{{ title }}</span>
+                </a>
+            </div>
+            <ul class="nav">
                 <li v-for="(item, index) in navItems" :key="index">
-                    <a href="">{{ item }}</a>
+                    <a href="">
+                        <i class="iconfont" :class="icons[index]"></i>
+                        {{ item }}
+                    </a>
+                    <img v-if="index == 2 || index == 3" src="../assets/down.png" alt="">
+                    <!-- <i v-if="index == 2 || index == 3" src="../assets/down.png"> -->
                 </li>
+                <li><i class="iconfont icon-sousuo search"></i></li>
             </ul>
+            <h1 class="slogan">Learn a little every day</h1>
         </div>
     </div>    
 </template>
 
 <script>
+
 export default {
     props: {
         navItems: {
@@ -22,6 +35,11 @@ export default {
             type: String,
             default: ''
         }
+    },
+    data() {
+        return {
+            icons: ['icon-fl-jia', 'icon-biaoqian', 'icon-shuqian', 'icon-touxiang', 'icon-shu']
+        }
     }
 }
 </script>
@@ -31,36 +49,79 @@ export default {
         padding: 0;
         margin: 0;
     }
+    a {
+        text-decoration: none;
+        color: white;
+    }
     body {
-        min-width: 1000px;
+        min-width: 805px;
     }
     .header {
-        height: 80px;
-        padding: 0 100px;
+        height: 200px;
+        background: #1DA7DA;
         position: relative;
-        line-height: 80px;
-        text-align: center;
-        border-bottom: 2px solid #696060;
-        display: flex;
-        flex-direction: row;
         .title {
+            position: absolute;
+            left: 150px;
             height: 80px;
-            display: block;
-            flex: 1 1 200px;
-        }
-        .navs {
-            list-style-type: none;
-            height: 80px;
-            flex: 1 1 600px;
-            li {
+            width: 250px;
+            line-height: 80px;
+            font-size: 32px;
+            i {
                 display: inline-block;
-                padding: 0 30px;
-                a {
-                    text-decoration: none;
-                    color: #696060;
-                }
+                font-size: 36px;
+                margin-right: 10px;
             }
         }
-        
+        .nav {
+            list-style-type: none;
+            position: absolute;
+            right: 150px;
+            width: 600px;
+            li {
+                display: inline-block;
+                text-align: center;
+                line-height: 80px;
+                height: 80px;
+                font-size: 18px;
+                padding: 0 15px 0 12px;
+                position: relative;
+                cursor: pointer;
+                i {
+                    display: inline-block;
+                    font-size: 20px;
+                    position: relative;
+                    left: 2px;
+                }
+                img {
+                    width: 18px;
+                    height: 18px;
+                    // position: absolute;
+                    position: relative;
+                    top: 2px;
+                    margin-left: 3px;
+                }
+                .search {
+                    display: inline-block;
+                    font-size: 24px;
+                    color: white;
+                    position: relative;
+                    top: 2px;
+                }
+            }
+            li:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transition: .5s;
+            }
+        }
+        .slogan {
+            color: white;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom: 50px;
+            font-size: 36px;;
+        }
     }
+    
 </style>

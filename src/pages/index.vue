@@ -1,12 +1,12 @@
 <template>
     <div id="container">
         <nav-header :navItems="navItems" :title="title"></nav-header>
-        <main id="main">
+        <!-- <main id="main">
             <ul class="aside">
                 <li v-for="(item, index) in kinds" :key="index">{{ item }}</li>
             </ul>
-        </main>
-        <footer></footer>
+        </main> -->
+        <!-- <footer></footer> -->
     </div>
 </template>
 
@@ -30,16 +30,19 @@ export default {
 
 <style lang="scss">
     .aside {
-        // margin-top: 30px;
+        margin-top: 20px;
         width: 230px;
         height: 500px;
         border-right: 2px solid gainsboro;
         li {
             width: 230px;
-            height: 40px;
+            height: 50px;
             text-align: center;
             line-height: 40px;
             // border-bottom: 1px solid gainsboro;
+        }
+        li:hover {
+            text-decoration: underline;
         }
     }
 </style>
