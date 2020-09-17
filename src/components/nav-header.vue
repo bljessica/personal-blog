@@ -42,14 +42,8 @@ export default {
 </script>
 
 <style lang="scss">
-    * {
-        padding: 0;
-        margin: 0;
-    }
-    a {
-        text-decoration: none;
-        color: white;
-    }
+    
+    
     body {
         min-width: 805px;
     }
@@ -57,12 +51,16 @@ export default {
         height: 200px;
         background: #1DA7DA;
         position: relative;
+        a {
+            text-decoration: none;
+            color: white;
+        }
         .title {
             position: absolute;
             left: 150px;
-            height: 80px;
+            height: 60px;
             width: 250px;
-            line-height: 80px;
+            line-height: 60px;
             font-size: 30px;
             i {
                 display: inline-block;
@@ -78,8 +76,8 @@ export default {
             li {
                 display: inline-block;
                 text-align: center;
-                line-height: 80px;
-                height: 80px;
+                line-height: 60px;
+                height: 60px;
                 font-size: 16px;
                 padding: 0 15px 0 12px;
                 position: relative;
@@ -107,8 +105,12 @@ export default {
                 }
             }
             li:hover {
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(0, 0, 0, 0.1);
                 transition: .5s;
+                img {
+                    transform: rotate(180deg);
+                    transition: .5s;
+                }
             }
         }
         .slogan {
