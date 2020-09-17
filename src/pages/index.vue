@@ -5,7 +5,7 @@
             <entrance :items="entranceKinds"></entrance>
             <blog-container :blogs="blogs"></blog-container>
         </main> 
-        <footer></footer>
+        <my-footer></my-footer>
     </div>
 </template>
 
@@ -13,6 +13,7 @@
 import navHeader from '../components/nav-header'
 import entrance from '../components/entrance'
 import blogContainer from '../components/blog-container'
+import myFooter from '../components/my-footer'
 import { NAV_ITEMS, TITLE, ENTRANCE_ITEMS } from '../consts/const'
 
 export default {
@@ -29,7 +30,8 @@ export default {
     components: {
         navHeader,
         entrance,
-        blogContainer
+        blogContainer,
+        myFooter
     }
 }
 </script>

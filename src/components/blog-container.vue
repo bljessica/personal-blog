@@ -106,6 +106,11 @@ export default {
                     position: absolute;
                     right: 20px;
                     bottom: 10px;
+                    a:hover {
+                        color: #42B983;
+                        font-weight: bold;
+                        text-decoration: underline;
+                    }
                 }
             }
             .kinds {
@@ -124,13 +129,16 @@ export default {
                     line-height: 24px;
                     a {
                         color: white;
+                        &:hover {
+                            font-weight: bold;
+                            text-decoration: underline;
+                        }
                     }
                 }
             }
         }
         .blog:hover {
             box-shadow: 0 5px 10px grey;
-            // top: -2px;
             transition: .5s;
         }
     }
