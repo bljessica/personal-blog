@@ -1,6 +1,6 @@
 # personal-blog
 
-> 个人博客
+个人博客
 
 ## 技术
 + 使用 postcss-px-to-viewport 适配移动端布局px自动转换vw
