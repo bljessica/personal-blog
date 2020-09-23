@@ -3,6 +3,8 @@
 个人博客
 
 ## 技术
++ 前端使用vue框架
++ 使用vue-router进行路由管理
 + 使用 postcss-px-to-viewport 适配移动端布局px自动转换vw
 
 ## 运行
