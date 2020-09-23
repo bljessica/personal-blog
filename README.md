@@ -1,11 +1,11 @@
 # personal-blog
 
-个人博客
+基于Vue.js实现的个人博客前端界面
 
 ## 技术
-+ 前端使用vue框架
++ vue框架
 + 使用vue-router进行路由管理
-+ 使用 postcss-px-to-viewport 适配移动端布局px自动转换vw
++ 使用 postcss-px-to-viewport 适配移动端布局，px自动转换vw
 
 ## 功能
 
