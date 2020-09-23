@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import animate from 'animate.css'
+import '../static/iconfont.css'
 
 Vue.use(animate);
 Vue.config.productionTip = false

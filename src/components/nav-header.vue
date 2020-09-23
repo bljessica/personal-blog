@@ -75,10 +75,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
-    body {
-        min-width: 805px;
-    }
+<style lang="scss" scoped>
+    // body {
+    //     min-width: 805px;
+    // }
     .header {
         height: 200px;
         background: #1DA7DA;
@@ -113,8 +113,10 @@ export default {
             .nav {
                 list-style-type: none;
                 position: absolute;
+                top: 0;
                 right: 150px;
                 width: 600px;
+                margin: 0;
                 li {
                     display: inline-block;
                     text-align: center;
@@ -156,7 +158,7 @@ export default {
                 }
             }
             .classify-items, .about-items {
-                position: absolute;
+                position: relative;
                 top: 60px;
                 background: white;
                 width: 100px;
@@ -191,11 +193,12 @@ export default {
                 }
             }
             .classify-items {
-                left: 660px;
+                left: 690px;
                 height: 280px;
+
             }
             .about-items {
-                left: 760px;
+                left: 795px;
                 height: 80px;
             }
         }
