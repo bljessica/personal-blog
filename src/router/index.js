@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import '../../static/iconfont.css'
 
 Vue.use(Router)
 
@@ -8,8 +8,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'index',
+      component: () => import('@/components/index.vue')
+    },
+    {
+      path: '/label',
+      name: 'label',
+      component: () => import('@/components/label.vue')
     }
   ]
 })
