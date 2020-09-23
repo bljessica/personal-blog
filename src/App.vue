@@ -10,9 +10,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   /* font-family: 'Avenir', Helvetica, Arial, sans-serif; */
+  // body {
+  //   min-width: 780px;
+  // }
   font-family: 'Microsoft YaHei';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

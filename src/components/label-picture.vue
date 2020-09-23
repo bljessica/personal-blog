@@ -14,16 +14,7 @@ export default {
         return {
             labels: LABELS
         }
-    },
-    // methods: {
-    //     getStyle(index) {
-    //         let style = {};
-    //         style.top = 50 * (index % 7 + 1) + 'px';
-    //         style.left =  70 * (index % 7 + 1) + 'px';
-    //         style.color = 'blue';
-    //         return style;
-    //     }
-    // }
+    }
 }
 </script>
 
@@ -42,12 +33,8 @@ export default {
             height: 100%;
             list-style-type: none;
             li {
-                // float: left;
                 display: inline-block;
                 position: absolute;
-
-                span {
-                }
             }
         }
     }

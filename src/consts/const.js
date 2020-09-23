@@ -21,7 +21,7 @@ const ABOUT_ITEMS = ['关于博客', '留言小本'];
 //     'Python', 'Vue.js', '浏览器'];
 
 const LABELS = [
-    {name: 'Web开发', left: '400px', top: '150px', color: '#AAB5F0', fontSize: '50px'},
+    {name: 'Web开发', left: '400px', top: '150px', color: '#00CCFF', fontSize: '50px'},
     {name: 'windows', left: '300px', top: '120px', color: '#90c5f0', fontSize: '30px'},
     {name: '工具', left: '180px', top: '100px', color: '#0cf', fontSize: '12px'},
     {name: 'HTML5/CSS3', left: '500px', top: '130px', color: '#90c5f0', fontSize: '12px'},
@@ -40,7 +40,20 @@ const LABELS = [
     {name: 'Python', left: '630px', top: '90px', color: '#0cf', fontSize: '124x'},
     {name: 'Vue.js', left: '520px', top: '70px', color: '#90c5f0', fontSize: '12px'},
     {name: '浏览器', left: '300px', top: '250px', color: '#AAB5F0', fontSize: '24px'}
-]
+];
+
+const LOGIN_ITEMS = [
+    {name: '手机号', placeholder: '请输入手机号', content: '', type: 'number'},
+    {name: '昵称', placeholder: '请输入昵称', content: '', type: 'text'},
+    {name: '密码', placeholder: '请输入密码', content: '', type: 'password'},
+    {name: '再次输入密码', placeholder: '请再次输入密码', content: '', type: 'password'}
+];
+
+const REGISTER_ITEMS = [
+    {name: '手机号', placeholder: '请输入手机号', content: '', type: 'number'},
+    {name: '密码', placeholder: '请输入密码', content: '', type: 'password'},
+    {name: '再次输入密码', placeholder: '请再次输入密码', content: '', type: 'password'}
+];
 
 export {
     NAV_ITEMS, 
@@ -48,5 +61,7 @@ export {
     ENTRANCE_ITEMS,
     CLASSIFY_ITEMS,
     ABOUT_ITEMS,
-    LABELS
+    LABELS,
+    LOGIN_ITEMS,
+    REGISTER_ITEMS
 }

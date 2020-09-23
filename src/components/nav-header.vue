@@ -34,6 +34,11 @@
                     <a href="">{{ item }}</a>
                 </li>
             </ul>
+            <!-- 登录注册 -->
+            <div class="user">
+                <router-link to="/login"><span class="login">登录</span></router-link>
+                <router-link to="/register"><span class="register">注册</span></router-link>
+            </div>
         </div>
         <h1 class="slogan">Learn a little every day</h1>
     </div>
@@ -79,15 +84,14 @@ export default {
     // body {
     //     min-width: 805px;
     // }
+    body {
+        margin: 0;
+    }
     .header {
         height: 200px;
         background: #1DA7DA;
         position: relative;
         a {
-            text-decoration: none;
-            color: white;
-        }
-        router-link {
             text-decoration: none;
             color: white;
         }
@@ -99,7 +103,7 @@ export default {
             z-index: 1001;
             .title {
                 position: absolute;
-                left: 150px;
+                left: 100px;
                 height: 60px;
                 width: 250px;
                 line-height: 60px;
@@ -114,7 +118,7 @@ export default {
                 list-style-type: none;
                 position: absolute;
                 top: 0;
-                right: 150px;
+                right: 250px;
                 width: 600px;
                 margin: 0;
                 li {
@@ -193,13 +197,29 @@ export default {
                 }
             }
             .classify-items {
-                left: 690px;
+                left: 590px;
                 height: 280px;
-
             }
             .about-items {
-                left: 795px;
+                left: 696px;
                 height: 80px;
+            }
+            .user {
+                height: 60px;
+                position: absolute;
+                top: 0;
+                right: 30px;
+                line-height: 60px;
+                span {
+                    display: inline-block;
+                    height: 100%;
+                    padding: 0 10px;
+                    cursor: pointer;
+                    &:hover {
+                        background: rgba(0, 0, 0, 0.1);
+                        transition: .5s;
+                    }
+                }
             }
         }
         .slogan {

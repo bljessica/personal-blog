@@ -2,31 +2,29 @@
     <div class="container">
         <nav-header></nav-header>
         <main>
-            <label-box></label-box>
-            <label-picture></label-picture>
+            <my-form :items="registerItems" :type="'注册'"></my-form>
         </main>
-        <to-top-button></to-top-button>
         <my-footer></my-footer>
     </div>
 </template>
 
 <script>
 import navHeader from '../components/nav-header'
-import labelBox from '../components/label-box'
-import labelPicture from '../components/label-picture'
 import myFooter from '../components/my-footer'
-import toTopButton from '../components/to-top-button'
-
+import myForm from '../components/my-form'
+import { REGISTER_ITEMS } from '../consts/const'
 
 export default {
     components: {
         navHeader,
-        labelBox,
-        labelPicture,
         myFooter,
-        toTopButton
+        myForm
+    },
+    data() {
+        return {
+            registerItems: REGISTER_ITEMS
+        }
     }
-    
 }
 </script>
 

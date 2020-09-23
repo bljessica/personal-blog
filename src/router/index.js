@@ -14,6 +14,16 @@ export default new Router({
       path: '/label',
       name: 'label',
       component: () => import('@/views/label.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/login.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('@/views/register.vue')
     }
   ]
 })

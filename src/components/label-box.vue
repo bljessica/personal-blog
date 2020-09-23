@@ -5,11 +5,11 @@
             <span>文章标签</span>
         </div>
         <ul class="label-box">
-            <li v-for="(item, index) in labels" :key="index">
-                <!-- <router-link> -->
+            <li v-for="(item, index) in labels" :key="index"  class="animate__animated animate__bounceInDown">
+                <router-link to="/">
                     <span>{{ item.name }}</span>
                     <span class="num">3</span>
-                <!-- </router-link> -->
+                </router-link>
             </li>
         </ul>
     </div>
@@ -28,10 +28,14 @@ export default {
 </script>
 
 <style lang="scss">
+    a {
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.8);
+    }
     .label-container {
         z-index: 1000;
         width: 840px;
-        height: 300px;
+        height: 270px;
         padding: 30px 80px;
         background: white;
         position: relative;
@@ -48,7 +52,7 @@ export default {
         }
         .label-box {
             list-style-type: none;
-            width: 100%;
+            // width: 100%;
             height: 300px;
             position: relative;
             top: 30px;
@@ -65,8 +69,11 @@ export default {
                 box-shadow: 0 5px 10px gainsboro;
                 font-size: 14px;
                 .num {
-                    color: rgb(209, 87, 87);
-                    margin-left: 5px;
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #E91163;
+                    // color: rgb(209, 87, 87);
+                    margin-left: 3px;
                 }
                 router-link {
                     width: 100%;
