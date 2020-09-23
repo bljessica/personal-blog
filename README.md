@@ -7,8 +7,10 @@
 + 使用vue-router进行路由管理
 + 使用 postcss-px-to-viewport 适配移动端布局px自动转换vw
 
-## 运行
+## 功能
 
+
+## 运行
 ``` bash
 # 安装依赖
 npm install
