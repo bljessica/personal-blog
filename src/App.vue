@@ -11,11 +11,12 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+    // min-width: 780px;
+    margin: 0;
+  }
 #app {
   /* font-family: 'Avenir', Helvetica, Arial, sans-serif; */
-  // body {
-  //   min-width: 780px;
-  // }
   font-family: 'Microsoft YaHei';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

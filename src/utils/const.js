@@ -23,7 +23,7 @@ const ABOUT_ITEMS = ['关于博客', '留言小本'];
 const LABELS = [
     {name: 'Web开发', left: '400px', top: '150px', color: '#00CCFF', fontSize: '50px'},
     {name: 'windows', left: '300px', top: '120px', color: '#90c5f0', fontSize: '30px'},
-    {name: '工具', left: '180px', top: '100px', color: '#0cf', fontSize: '12px'},
+    {name: '工具', left: '200px', top: '100px', color: '#0cf', fontSize: '12px'},
     {name: 'HTML5/CSS3', left: '500px', top: '130px', color: '#90c5f0', fontSize: '12px'},
     {name: 'Git', left: '310px', top: '90px', color: '#0cf', fontSize: '24px'},
     {name: '规范', left: '530px', top: '260px', color: '#90c5f0', fontSize: '30px'},
@@ -37,20 +37,19 @@ const LABELS = [
     {name: 'MongoDB', left: '670px', top: '190px', color: '#0cf', fontSize: '12px'},
     {name: 'Node.js', left: '390px', top: '230px', color: '#90c5f0', fontSize: '24px'},
     {name: '数据结构', left: '690px', top: '230px', color: '#AAB5F0', fontSize: '30px'},
-    {name: 'Python', left: '630px', top: '90px', color: '#0cf', fontSize: '124x'},
-    {name: 'Vue.js', left: '520px', top: '70px', color: '#90c5f0', fontSize: '12px'},
+    {name: 'Python', left: '670px', top: '80px', color: '#0cf', fontSize: '24px'},
+    {name: 'Vue.js', left: '520px', top: '70px', color: '#90c5f0', fontSize: '24px'},
     {name: '浏览器', left: '300px', top: '250px', color: '#AAB5F0', fontSize: '24px'}
 ];
 
 const LOGIN_ITEMS = [
     {name: '手机号', placeholder: '请输入手机号', content: '', type: 'number'},
-    {name: '昵称', placeholder: '请输入昵称', content: '', type: 'text'},
-    {name: '密码', placeholder: '请输入密码', content: '', type: 'password'},
-    {name: '再次输入密码', placeholder: '请再次输入密码', content: '', type: 'password'}
+    {name: '密码', placeholder: '请输入密码', content: '', type: 'password'}
 ];
 
 const REGISTER_ITEMS = [
     {name: '手机号', placeholder: '请输入手机号', content: '', type: 'number'},
+    {name: '昵称', placeholder: '请输入昵称', content: '', type: 'text'},
     {name: '密码', placeholder: '请输入密码', content: '', type: 'password'},
     {name: '再次输入密码', placeholder: '请再次输入密码', content: '', type: 'password'}
 ];

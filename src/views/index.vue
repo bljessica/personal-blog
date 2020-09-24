@@ -16,7 +16,8 @@ import entrance from '../components/entrance'
 import blogContainer from '../components/blog-container'
 import myFooter from '../components/my-footer'
 import toTopButton from '../components/to-top-button'
-import { ENTRANCE_ITEMS } from '../consts/const'
+import { ENTRANCE_ITEMS } from '../utils/const'
+
 
 export default {
     data() {

@@ -35,9 +35,16 @@
                 </li>
             </ul>
             <!-- 登录注册 -->
-            <div class="user">
-                <router-link to="/login"><span class="login">登录</span></router-link>
-                <router-link to="/register"><span class="register">注册</span></router-link>
+            <div class="user" :key="pageKey">
+                <!-- 未登录 -->
+                <router-link to="/login"><span class="login" v-if="!GLOBAL.logined">登录</span></router-link>
+                <router-link to="/register"><span class="register" v-if="!GLOBAL.logined">注册</span></router-link>
+                <!-- 登录后 -->
+                <span v-if="GLOBAL.logined">欢迎你，{{ GLOBAL.nickname }}</span>
+                <router-link to="/"><span v-if="GLOBAL.logined">个人中心</span></router-link>
+                <span v-if="GLOBAL.logined">
+                    <el-button @click="logOut">登出</el-button>
+                </span>
             </div>
         </div>
         <h1 class="slogan">Learn a little every day</h1>
@@ -45,9 +52,10 @@
 </template>
 
 <script>
-import { CLASSIFY_ITEMS, ABOUT_ITEMS, NAV_ITEMS, TITLE } from '../consts/const'
+import { CLASSIFY_ITEMS, ABOUT_ITEMS, NAV_ITEMS, TITLE } from '../utils/const';
+import { getUser } from '../utils/api/user';
 
-export default { 
+export default {
     data() {
         return {
             icons: ['icon-fl-jia', 'icon-biaoqian', 'icon-shuqian', 'icon-touxiang', 'icon-shu'],
@@ -56,7 +64,29 @@ export default {
             classifyShow: false,
             aboutShow: false,
             navItems: NAV_ITEMS,
-            title: TITLE
+            title: TITLE,
+            pageKey: 0
+        }
+    },
+    mounted() {
+        let that = this;
+        if(this.GLOBAL.logined){
+            //获取用户昵称
+            getUser({
+                phone: that.GLOBAL.phone
+            }).then(res => {
+                if(res.code == 0){
+                    if(res.data.nickname.length != 0){
+                        that.GLOBAL.nickname = res.data.nickname;
+                        this.pageKey++;
+                    }
+                }
+                else {
+                    console.log(res.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            });
         }
     },
     methods: {
@@ -76,17 +106,21 @@ export default {
                 this.aboutShow = false;
             }
         },
+        logOut() {
+            this.GLOBAL.logined = false;
+            this.GLOBAL.phone = '';
+            this.GLOBAL.nickname = '';
+            this.pageKey++;
+            this.$message({
+                message: '登出成功',
+                type: 'success'
+            });
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    // body {
-    //     min-width: 805px;
-    // }
-    body {
-        margin: 0;
-    }
     .header {
         height: 200px;
         background: #1DA7DA;
@@ -118,7 +152,7 @@ export default {
                 list-style-type: none;
                 position: absolute;
                 top: 0;
-                right: 250px;
+                right: 280px;
                 width: 600px;
                 margin: 0;
                 li {
@@ -126,8 +160,9 @@ export default {
                     text-align: center;
                     line-height: 60px;
                     height: 60px;
-                    font-size: 16px;
-                    padding: 0 15px 0 12px;
+                    font-size: 14px;
+                    // padding: 0 15px 0 12px;
+                    padding: 0 10px 0 8px;
                     position: relative;
                     cursor: pointer;
                     i {
@@ -210,15 +245,25 @@ export default {
                 top: 0;
                 right: 30px;
                 line-height: 60px;
+                font-size: 14px;
                 span {
                     display: inline-block;
                     height: 100%;
-                    padding: 0 10px;
+                    // padding: 0 10px;
+                    padding: 0 10px 0 8px;
                     cursor: pointer;
+                    color: white;
                     &:hover {
                         background: rgba(0, 0, 0, 0.1);
                         transition: .5s;
                     }
+                }
+                span button {
+                    background: transparent;
+                    color: white;
+                    border: none;
+                    font-size: 14px;
+                    padding: 0 10px;
                 }
             }
         }

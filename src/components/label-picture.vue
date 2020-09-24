@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { LABELS } from '../consts/const'
+import { LABELS } from '../utils/const'
 
 export default {
     data() {

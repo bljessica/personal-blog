@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { LABELS } from '../consts/const.js'
+import { LABELS } from '../utils/const'
 
 export default {
     data() {
@@ -68,6 +68,19 @@ export default {
                 line-height: 30px;
                 box-shadow: 0 5px 10px gainsboro;
                 font-size: 14px;
+                cursor: pointer;
+                // color: rgba(0, 0, 0, 0.8);
+                &:hover {
+                    background: #1DA7DA;
+                    // color: white;
+                    &>a {
+                        color: white;
+                    }
+                    .num {
+                        color: white;
+                    }
+                    transition: .5s;
+                }
                 .num {
                     font-size: 12px;
                     font-weight: bold;

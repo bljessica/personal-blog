@@ -2,7 +2,7 @@
     <div class="container">
         <nav-header></nav-header>
         <main>
-            <my-form :items="loginItems" :type="'登录'"></my-form>
+            <my-form :items="loginItems" :type="'login'"></my-form>
         </main>
         <my-footer></my-footer>
     </div>
@@ -12,7 +12,7 @@
 import navHeader from '../components/nav-header'
 import myFooter from '../components/my-footer'
 import myForm from '../components/my-form'
-import { LOGIN_ITEMS } from '../consts/const'
+import { LOGIN_ITEMS } from '../utils/const'
 
 
 export default {
