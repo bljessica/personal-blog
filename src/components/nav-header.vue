@@ -232,11 +232,11 @@ export default {
                 }
             }
             .classify-items {
-                left: 590px;
+                left: 568px;
                 height: 280px;
             }
             .about-items {
-                left: 696px;
+                left: 658px;
                 height: 80px;
             }
             .user {
