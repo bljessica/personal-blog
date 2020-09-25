@@ -41,7 +41,7 @@
                 <router-link to="/register"><span class="register" v-if="!GLOBAL.logined">注册</span></router-link>
                 <!-- 登录后 -->
                 <span v-if="GLOBAL.logined">欢迎你，{{ GLOBAL.nickname }}</span>
-                <router-link to="/"><span v-if="GLOBAL.logined">个人中心</span></router-link>
+                <router-link to="/mine"><span v-if="GLOBAL.logined">个人中心</span></router-link>
                 <span v-if="GLOBAL.logined">
                     <el-button @click="logOut">登出</el-button>
                 </span>
@@ -70,7 +70,7 @@ export default {
     },
     mounted() {
         let that = this;
-        if(this.GLOBAL.logined){
+        if(this.GLOBAL.logined && !this.GLOBAL.got){
             //获取用户昵称
             getUser({
                 phone: that.GLOBAL.phone
@@ -78,6 +78,7 @@ export default {
                 if(res.code == 0){
                     if(res.data.nickname.length != 0){
                         that.GLOBAL.nickname = res.data.nickname;
+                        that.GLOBAL.avatarUrl = res.data.avatarUrl;
                         this.pageKey++;
                     }
                 }
@@ -107,9 +108,7 @@ export default {
             }
         },
         logOut() {
-            this.GLOBAL.logined = false;
-            this.GLOBAL.phone = '';
-            this.GLOBAL.nickname = '';
+            this.GLOBAL.reset();
             this.pageKey++;
             this.$message({
                 message: '登出成功',

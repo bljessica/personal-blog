@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4343836",
+      "name": "修改",
+      "font_class": "xiugai",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "689240",
+      "name": "个人 用户 头像",
+      "font_class": "gerenyonghutouxiang",
+      "unicode": "e7e4",
+      "unicode_decimal": 59364
+    },
+    {
       "icon_id": "436388",
       "name": "时间",
       "font_class": "59",
