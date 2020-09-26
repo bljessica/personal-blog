@@ -12,7 +12,7 @@
 import navHeader from '../components/nav-header'
 import myFooter from '../components/my-footer'
 import myForm from '../components/my-form'
-import { REGISTER_ITEMS } from '../utils/const'
+import { REGISTER_ITEMS } from '../consts/const'
 
 export default {
     components: {

@@ -13,12 +13,18 @@ function login(data) {
 }
 
 //获取用户头像昵称
-function getUser(data) {
-    return request(BASE_URL + '/getUser', 'GET', data);
+function getUserInfo(data) {
+    return request(BASE_URL + '/getUserInfo', 'GET', data);
+}
+
+//更新用户头像昵称
+function saveUserInfo(data) {
+    return request(BASE_URL + '/saveUserInfo', 'POST', data);
 }
 
 export {
     register,
     login,
-    getUser
+    getUserInfo,
+    saveUserInfo
 }

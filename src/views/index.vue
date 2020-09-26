@@ -16,7 +16,8 @@ import entrance from '../components/entrance'
 import blogContainer from '../components/blog-container'
 import myFooter from '../components/my-footer'
 import toTopButton from '../components/to-top-button'
-import { ENTRANCE_ITEMS } from '../utils/const'
+import { ENTRANCE_ITEMS } from '../consts/const'
+import { getUserInfo } from '../api/user';
 
 
 export default {
@@ -34,6 +35,32 @@ export default {
         blogContainer,
         myFooter,
         toTopButton
+    },
+    mounted() {
+        //未获取过用户信息
+        if(this.$store.getters.logined && !this.$store.getters.currentUser.nickname){
+            let that = this;
+            //获取用户昵称
+            getUserInfo({
+                phone: that.$store.getters.currentUser.phone
+            }).then(res => {
+                if(res.code == 0){
+                    if(res.data.nickname.length != 0){
+                        this.$store.commit('signIn', {
+                            nickname: res.data.nickname,
+                            phone: res.data.phone,
+                            avatarUrl: res.data.avatarUrl
+                        });
+                        this.pageKey++;
+                    }
+                }
+                else {
+                    console.log(res.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
     }
 }
 </script>

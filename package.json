@@ -12,9 +12,11 @@
   "dependencies": {
     "clone-deep": "^4.0.1",
     "element-ui": "^2.13.2",
+    "es6-promise": "^4.2.8",
     "shallow-clone": "^3.0.1",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "animate.css": "^4.1.1",

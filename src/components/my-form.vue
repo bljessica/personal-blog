@@ -3,7 +3,7 @@
         <ul>
             <li v-for="(item, index) in items" :key="index">
                 <span>{{ item.name }}</span>
-                <input :type="item.type" :placeholder="item.placeholder" v-model="item.content">
+                <input :type="item.type" :placeholder="item.placeholder" v-model="item.content" v-on:keyup.enter="submitForm">
             </li>
             <el-button class="submit" @click="submitForm">{{ getBtnContent }}</el-button>
         </ul> 
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { register, login } from '../utils/api/user';
+import { register, login } from '../api/user';
 // import { logined } from '../utils/global'
 
 export default {
@@ -168,8 +168,9 @@ export default {
                             duration: 1000
                         });
                         setTimeout(() => {
-                            that.GLOBAL.logined = true;
-                            that.GLOBAL.phone = that.getItemContent('手机号');
+                            this.$store.commit('signIn', {
+                                phone: that.getItemContent('手机号')
+                            });
                             //跳转到首页
                             that.$router.push('/');
                         }, 1000);

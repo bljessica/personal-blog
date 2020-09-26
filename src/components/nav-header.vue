@@ -37,12 +37,12 @@
             <!-- 登录注册 -->
             <div class="user" :key="pageKey">
                 <!-- 未登录 -->
-                <router-link to="/login"><span class="login" v-if="!GLOBAL.logined">登录</span></router-link>
-                <router-link to="/register"><span class="register" v-if="!GLOBAL.logined">注册</span></router-link>
+                <router-link to="/login"><span class="login" v-if="!$store.getters.logined">登录</span></router-link>
+                <router-link to="/register"><span class="register" v-if="!$store.getters.logined">注册</span></router-link>
                 <!-- 登录后 -->
-                <span v-if="GLOBAL.logined">欢迎你，{{ GLOBAL.nickname }}</span>
-                <router-link to="/mine"><span v-if="GLOBAL.logined">个人中心</span></router-link>
-                <span v-if="GLOBAL.logined">
+                <span v-if="$store.getters.logined">欢迎你，{{ $store.getters.currentUser.nickname }}</span>
+                <router-link to="/mine"><span v-if="$store.getters.logined">个人中心</span></router-link>
+                <span v-if="$store.getters.logined">
                     <el-button @click="logOut">登出</el-button>
                 </span>
             </div>
@@ -52,8 +52,7 @@
 </template>
 
 <script>
-import { CLASSIFY_ITEMS, ABOUT_ITEMS, NAV_ITEMS, TITLE } from '../utils/const';
-import { getUser } from '../utils/api/user';
+import { CLASSIFY_ITEMS, ABOUT_ITEMS, NAV_ITEMS, TITLE } from '../consts/const';
 
 export default {
     data() {
@@ -66,28 +65,6 @@ export default {
             navItems: NAV_ITEMS,
             title: TITLE,
             pageKey: 0
-        }
-    },
-    mounted() {
-        let that = this;
-        if(this.GLOBAL.logined && !this.GLOBAL.got){
-            //获取用户昵称
-            getUser({
-                phone: that.GLOBAL.phone
-            }).then(res => {
-                if(res.code == 0){
-                    if(res.data.nickname.length != 0){
-                        that.GLOBAL.nickname = res.data.nickname;
-                        that.GLOBAL.avatarUrl = res.data.avatarUrl;
-                        this.pageKey++;
-                    }
-                }
-                else {
-                    console.log(res.msg);
-                }
-            }).catch(err => {
-                console.log(err);
-            });
         }
     },
     methods: {
@@ -108,12 +85,22 @@ export default {
             }
         },
         logOut() {
-            this.GLOBAL.reset();
+            // this.GLOBAL.reset();
+            this.$store.commit('signOut');
             this.pageKey++;
-            this.$message({
-                message: '登出成功',
-                type: 'success'
-            });
+            if(!this.$store.getters.logined) {
+                this.$message({
+                    message: '登出成功',
+                    type: 'success'
+                });
+            }
+            else {
+                this.$message({
+                    message: '登出失败',
+                    type: 'error'
+                });
+            }
+            this.$router.push('/');
         }
     }
 }

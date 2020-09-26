@@ -2,26 +2,43 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import App from './App';
-import router from './router';
 import animate from 'animate.css';
 // import { Message } from 'element-ui';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import '../static/iconfont.css';
-import global from './utils/global.vue'
+
+import router from './router';
+import store from './store/index';
 
 Vue.use(animate);
 Vue.use(ElementUI);
-// Message.install = function(Vue, options) {
-//   Vue.prototype.$message = Message;
-// }
-// Vue.use(Message);
 Vue.prototype.GLOBAL = global;//挂载全局变量
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+//路由守卫
+router.beforeEach((to, from, next) => {
+  //判断该路由是否需要登陆权限
+  if(to.meta.requireAuth){
+    //登录了
+    if(store.getters.logined){
+      next();
+    }
+    else {
+      next({
+        path: '/login'
+      });
+    }
+  }
+  else {
+    next();
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'
