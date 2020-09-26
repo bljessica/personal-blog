@@ -20,6 +20,9 @@ const store = new Vuex.Store({
         signOut(state) {
             state.logined = false;
             state.currentUser = null;
+        },
+        modifyInfo(state, user) {
+            state.currentUser = user;
         }
     }
 });

@@ -40,7 +40,7 @@
                 <router-link to="/login"><span class="login" v-if="!$store.getters.logined">登录</span></router-link>
                 <router-link to="/register"><span class="register" v-if="!$store.getters.logined">注册</span></router-link>
                 <!-- 登录后 -->
-                <span v-if="$store.getters.logined">欢迎你，{{ $store.getters.currentUser.nickname }}</span>
+                <span v-if="$store.getters.logined" class="greeting">欢迎你，{{ $store.getters.currentUser.nickname }}</span>
                 <router-link to="/mine"><span v-if="$store.getters.logined">个人中心</span></router-link>
                 <span v-if="$store.getters.logined">
                     <el-button @click="logOut">登出</el-button>
@@ -244,6 +244,14 @@ export default {
                         transition: .5s;
                     }
                 }
+                // .greeting {
+                //     // display: inline-block;
+                //     width: 40px;
+                //     // height: 100%;
+                //     overflow: hidden;
+                //     text-overflow: ellipsis;
+                //     white-space: nowrap;
+                // }
                 span button {
                     background: transparent;
                     color: white;
