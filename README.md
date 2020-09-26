@@ -5,6 +5,7 @@
 ## 技术
 + vue框架
 + 使用vue-router进行路由管理
++ 使用vuex进行状态管理
 + 使用 postcss-px-to-viewport 适配移动端布局，px自动转换vw
 + 使用axios进行ajax请求
 + 使用element-ui的部分组件
