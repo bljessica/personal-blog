@@ -61,7 +61,7 @@ export default {
             let that = this;
             this.$refs[formName].validate((valid) => {
                 if(valid) {
-                    console.log('成功');
+                    // console.log('成功');
                     //发起请求
                     login({
                         phone: that.ruleForm.phone,

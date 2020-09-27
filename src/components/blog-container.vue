@@ -9,16 +9,16 @@
                     <p style="-webkit-box-orient: vertical;">{{ item.content }}</p>
                     <div class="time">
                         <i class="iconfont icon-59"></i>
-                        <span>{{ item.time }}</span>
+                        <span>{{ item.created }}</span>
                     </div>
-                    <div class="label">
+                    <div class="kind">
                         <i class="iconfont icon-shuqian"></i>
-                        <a href=""><span>{{ item.label }}</span></a>
+                        <a href=""><span>{{ item.kind }}</span></a>
                     </div>
                 </div>
-                <ul class="kinds">
-                    <li v-for="(kind, index) in item.kinds" :key="index" class="kind">
-                        <a href=""><span>{{ kind }}</span></a>
+                <ul class="labels">
+                    <li v-for="(label, index) in item.labels" :key="index" class="label">
+                        <a href=""><span>{{ label }}</span></a>
                     </li>
                 </ul>
             </li>
@@ -57,14 +57,15 @@ export default {
             cursor: pointer;
             margin-bottom: 30px;            
             .title {
-                width: 100%;
+                width: 300px;
                 height: 200px;
                 background-size: 100% 100%;
                 position: relative;
                 h3 {
-                    width: 100%;
+                    width: 260px;
+                    padding: 0 20px;
                     font-weight: normal;
-                    text-align: center;
+                    text-align: left;
                     position: absolute;
                     bottom: 10px;
                     left: 0;
@@ -81,6 +82,7 @@ export default {
                 border-bottom: 1px solid gainsboro;
                 position: relative;
                 font-size: 14px;
+                text-align: left;
                 color: rgba(0, 0, 0, 0.87);
                 p {
                     //-webkit-box-orient: vertical;一定要写在内联样式中，否则vue项目打包后webpack会忽略这一行
@@ -101,7 +103,7 @@ export default {
                     left: 20px;
                     bottom: 10px;
                 }
-                .label {
+                .kind {
                     display: inline-block;
                     position: absolute;
                     right: 20px;
@@ -113,14 +115,17 @@ export default {
                     }
                 }
             }
-            .kinds {
+            .labels {
                 list-style-type: none;
                 padding: 10px 20px;
                 display: flex;
-                .kind {
-                    width: 60px;
+                overflow: hidden;
+                .label {
+                    // width: 60px;
+                    padding: 0 10px;
                     height: 24px;
                     margin-top: 3px;
+                    margin-left: 5px;
                     background: #1DA7DA;
                     border-radius: 10px;
                     text-align: center;
@@ -130,7 +135,7 @@ export default {
                     a {
                         color: white;
                         &:hover {
-                            font-weight: bold;
+                            // font-weight: bold;
                             text-decoration: underline;
                         }
                     }

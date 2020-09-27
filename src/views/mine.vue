@@ -21,12 +21,12 @@
                 </div>
                 <el-button class="save" @click="saveInfo">保存设置</el-button>
             </div>
-            <el-tabs v-model="activeName" @click="handleClick" @tab-click="getNotes" class="tabs">
-                <el-tab-pane label="添加笔记" name="addNote">
-                    <add-note-box></add-note-box>
+            <el-tabs v-model="activeName" @click="handleClick" @tab-click="getblogs" class="tabs">
+                <el-tab-pane label="添加博客" name="addBlog">
+                    <add-blog-box></add-blog-box>
                 </el-tab-pane>
-                <el-tab-pane label="我的笔记" name="myNotes" >
-                    <my-notes ref="notes"></my-notes>
+                <el-tab-pane label="我的博客" name="myBlogs" >
+                    <my-blogs ref="blogs"></my-blogs>
                 </el-tab-pane>
                 <el-tab-pane label="我的收藏" name="myCollections"></el-tab-pane>
                 <el-tab-pane label="我的关注" name="myFollowings"></el-tab-pane>
@@ -40,21 +40,21 @@
 <script>
 import navHeader from '../components/nav-header';
 import myFooter from '../components/my-footer';
-import addNoteBox from '../components/add-note-box';
-import myNotes from '../components/my-notes';
+import addBlogBox from '../components/add-blog-box';
+import myBlogs from '../components/my-blogs';
 import { saveUserInfo } from '../api/user'
 
 export default {
     components: {
         navHeader,
         myFooter,
-        addNoteBox,
-        myNotes
+        addBlogBox,
+        myBlogs
     },
     data() {
         return {
             avatarUrl: this.$store.getters.currentUser.avatarUrl,
-            activeName: 'addNote',
+            activeName: 'addBlog',
             nickname: this.$store.getters.currentUser.nickname,
             focusState: false
         }
@@ -131,9 +131,9 @@ export default {
                         duration: 1000
                     }));
         },
-        getNotes() {
-            if(this.activeName == 'myNotes') {
-                this.$refs.notes.getAllNotes();
+        getblogs() {
+            if(this.activeName == 'myblogs') {
+                this.$refs.blogs.getAllblogs();
             }
         }
     }

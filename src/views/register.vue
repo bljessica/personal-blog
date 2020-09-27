@@ -21,7 +21,6 @@ export default {
     },
     data() {
         return {
-            registerItems: REGISTER_ITEMS
         }
     }
 }

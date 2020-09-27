@@ -1,9 +1,12 @@
 <template>
     <div id="container"> 
         <nav-header></nav-header>
-        <main id="main">
+        <main class="main">
             <entrance :items="entranceKinds"></entrance>
-            <blog-container :blogs="blogs"></blog-container>
+            <blog-container :blogs="blogsShow"></blog-container>
+            <el-pagination background layout="prev, pager, next" :page-count="pageNum" @current-change="changeCurrent"
+                :current-page="currentPage + 1" @prev-click="prevPage" @next-click="nextPage">
+            </el-pagination>
         </main> 
         <to-top-button></to-top-button>
         <my-footer></my-footer>
@@ -11,22 +14,25 @@
 </template>
 
 <script>
-import navHeader from '../components/nav-header'
-import entrance from '../components/entrance'
-import blogContainer from '../components/blog-container'
-import myFooter from '../components/my-footer'
-import toTopButton from '../components/to-top-button'
-import { ENTRANCE_ITEMS } from '../consts/const'
+import navHeader from '../components/nav-header';
+import entrance from '../components/entrance';
+import blogContainer from '../components/blog-container';
+import myFooter from '../components/my-footer';
+import toTopButton from '../components/to-top-button';
+import { ENTRANCE_ITEMS } from '../consts/const';
 import { getUserInfo } from '../api/user';
-
+import { getAllBlogs } from '../api/blog'; 
 
 export default {
     data() {
         return {
             entranceKinds: ENTRANCE_ITEMS,
-            blogs: new Array(8).fill({title: 'z-index的使用', content: `注意点:(1):z-index属性只作用在被定位了的元素上。所以如果你在一个没被定位的元素上使用z-index的话，是不会有效果的.
-                (2)同一个父元素下的元素的层叠效果会受父元素的z-index影响,如果父元素的z-index值很小,那么子元素的z-index值很大也不起作用`, 
-                time: '2020-9-16 16:48', label: '前端技术', kinds: ['CSS'], imgUrl: '../assets/css3.jpg'})
+            blogs: [],
+            pageSize: 9,
+            pages: [],
+            pageNum: 0,
+            currentPage: 0,
+            blogsShow: []
         }
     },
     components: {
@@ -37,28 +43,70 @@ export default {
         toTopButton
     },
     mounted() {
-        let that = this;
-        //未获取过用户信息
-        if(this.$store.getters.logined && !this.$store.getters.currentUser.nickname){
+        this.getUserInfo();
+        this.getAllBlogs();
+    },
+    methods: {
+        getUserInfo() {
             let that = this;
-            //获取用户昵称
-            getUserInfo({
-                phone: that.$store.getters.currentUser.phone
-            }).then(res => {
-                if(res.code == 0){
-                        that.$store.commit('modifyInfo', {
-                            userID: res.data.userID,
-                            nickname: res.data.nickname,
-                            phone: res.data.phone,
-                            avatarUrl: res.data.avatarUrl
-                        });
+            //未获取过用户信息
+            if(this.$store.getters.logined && !this.$store.getters.currentUser.nickname){
+                let that = this;
+                //获取用户昵称
+                getUserInfo({
+                    phone: that.$store.getters.currentUser.phone
+                }).then(res => {
+                    if(res.code == 0){
+                            that.$store.commit('modifyInfo', {
+                                userID: res.data.userID,
+                                nickname: res.data.nickname,
+                                phone: res.data.phone,
+                                avatarUrl: res.data.avatarUrl
+                            });
+                    }
+                    else {
+                        console.log(res.msg);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
+        },
+        getAllBlogs() {
+            let that = this;
+            getAllBlogs().then(res => {
+                if(res.code == 0) {
+                    that.blogs = res.data;
                 }
                 else {
                     console.log(res.msg);
                 }
-            }).catch(err => {
-                console.log(err);
-            });
+            }).then(() => that.getPages())
+            .catch(err => console.log(err));
+        },
+        getPages() {
+            this.pageNum = Math.ceil(this.blogs.length / this.pageSize);
+            //分页笔记数组
+            for(let i = 0; i < this.pageNum; i++){
+                this.pages[i] = this.blogs.slice(i * this.pageSize, (i + 1) * this.pageSize);
+            }
+            this.blogsShow = this.pages[this.currentPage];
+        },
+        prevPage() {
+            if(this.currentPage == 0) {
+                return;
+            }
+            this.blogsShow = this.pages[--this.currentPage];
+        },
+        nextPage() {
+            if(this.currentPage == this.pageNum - 1) {
+                return;
+            }
+            this.blogsShow = this.pages[++this.currentPage];
+        },
+        changeCurrent(current) {
+            this.currentPage = current - 1;
+            this.blogsShow = this.pages[current - 1];
         }
     }
 }
@@ -72,5 +120,11 @@ export default {
     body {
         font-family: 'Microsoft YaHei';
         background: #F7F7F7;
+    }
+    .main {
+        width: 100%;
+        .el-pagination {
+            margin-bottom: 20px;
+        }
     }
 </style>

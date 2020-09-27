@@ -1,26 +1,24 @@
 <template>
     <div class="container">
         <!-- 类型 -->
-        <el-select class="kind li" v-model="kind" placeholder="请选择笔记类型">
+        <el-select class="kind li" v-model="kind" placeholder="请选择博客类型">
             <el-option v-for="(item, index) in allKinds" :key="index" :value="item">
             </el-option>
         </el-select>
         <!-- 标题 -->
         <div class="title li">
-            <!-- <span>标题</span> -->
-            <el-input type="textarea" autosize placeholder="请输入笔记标题"
+            <el-input type="textarea" autosize placeholder="请输入博客标题"
                 v-model="title">
             </el-input>
         </div>
         <!-- 内容 -->
         <div class="content li">
-            <!-- <span>内容</span> -->
-            <el-input type="textarea" autosize placeholder="请输入笔记内容"
+            <el-input type="textarea" autosize placeholder="请输入博客内容"
                 v-model="content">
             </el-input>
         </div>
         <!-- 标签 -->
-        <el-select v-model="addedLabel" placeholder="请选择标签类型" @change="addLabel()" class="li">
+        <el-select v-model="addedLabel" placeholder="请选择标签类型" @change="addLabel" class="li">
             <el-option v-for="(item, index) in allLabels" :key="index" :value="item.name">
             </el-option>
         </el-select>
@@ -31,13 +29,13 @@
             </el-tag>
         </div>
         <!-- 发表笔记按钮 -->
-        <el-button class="addNote li" @click="requestAddNote">发表笔记</el-button>
+        <el-button class="li" @click="requestAddBlog">发表博客</el-button>
     </div>
 </template>
 
 <script>
 import { CLASSIFY_ITEMS, LABELS } from '../consts/const';
-import { addNote } from '../api/note';
+import { addBlog } from '../api/blog';
 
 export default {
     data() {
@@ -58,10 +56,10 @@ export default {
         addLabel() {
             this.labels.push(this.addedLabel);
         },
-        verifyBeforeAddNote() {
+        verifyBeforeAddBlog() {
             if(this.title.length == 0 || this.content.length == 0 || this.kind.length == 0 || this.labels.length == 0) {
                 this.$message({
-                    message: '笔记的标题、内容、类型、标签不可为空',
+                    message: '博客的标题、内容、类型、标签不可为空',
                     type: 'error',
                     duration: 1000
                 });
@@ -69,12 +67,12 @@ export default {
             }
             return true;
         },
-        requestAddNote() {
-            if(!this.verifyBeforeAddNote()) {
+        requestAddBlog() {
+            if(!this.verifyBeforeAddBlog()) {
                 return;
             }
             let that = this;
-            addNote({
+            addBlog({
                 userID: that.$store.getters.currentUser.userID,
                 title: that.title,
                 content: that.content,

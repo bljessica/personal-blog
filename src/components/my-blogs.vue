@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <ul class="notes-container">
-            <li v-for="(item, index) in notesShow" :key="index">
+        <ul class="blogs-container">
+            <li v-for="(item, index) in blogsShow" :key="index">
                 <div class="infos">
                     <span class="kind"><i class="iconfont icon-shuqian"></i>{{ item.kind }}</span>
                     <!-- <span class="created">{{ item.created }}</span> -->
@@ -14,38 +14,35 @@
                 </div>
             </li>
             <el-pagination background layout="prev, pager, next" :page-count="pageNum" @current-change="changeCurrent"
-            :current-page="currentPage + 1" @prev-click="prevPage" @next-click="nextPage"></el-pagination>
+                :current-page="currentPage + 1" @prev-click="prevPage" @next-click="nextPage">
+            </el-pagination>
         </ul>
         <el-button></el-button>
     </div>
 </template>
 
 <script>
-import { getNotes } from '../api/note';
+import { getBlogs } from '../api/blog';
 export default {
     data() {
         return {
-            notes: [],
+            blogs: [],
             pageSize: 3,
             pages: [],
             pageNum: 0,
             currentPage: 0,
-            notesShow: [],
+            blogsShow: [],
             key: 0
         }
     },
-    // mounted() {
-    //     this.getAllNotes();
-    //     // this.getPages();
-    // },
     methods: {
-        getAllNotes() {
+        getAllBlogs() {
             let that = this;
-            getNotes({
+            getBlogs({
                 userID: that.$store.getters.currentUser.userID
             }).then(res => {
                 if(res.code == 0) {
-                    that.notes = res.data;
+                    that.blogs = res.data;
                 }
                 else {
                     that.$message({
@@ -54,7 +51,7 @@ export default {
                         duration: 1000
                     });
                 }
-            }).then(() => this.getPages())
+            }).then(() => that.getPages())
             .catch(err => that.$message({
                 message: '获取笔记失败',
                 type: 'error',
@@ -62,37 +59,37 @@ export default {
             }))
         },
         getPages() {
-            this.pageNum = Math.ceil(this.notes.length / this.pageSize);
+            this.pageNum = Math.ceil(this.blogs.length / this.pageSize);
             //分页笔记数组
             for(let i = 0; i < this.pageNum; i++){
-                this.pages[i] = this.notes.slice(i * this.pageSize, (i + 1) * this.pageSize);
+                this.pages[i] = this.blogs.slice(i * this.pageSize, (i + 1) * this.pageSize);
             }
-            this.notesShow = this.pages[this.currentPage];
-            // console.log(this.notesShow, this.pages, this.notes, this.pageNum)
+            this.blogsShow = this.pages[this.currentPage];
+            // console.log(this.blogsShow, this.pages, this.blogs, this.pageNum)
         },
         prevPage() {
             if(this.currentPage == 0) {
                 return;
             }
-            this.notesShow = this.pages[--this.currentPage];
+            this.blogsShow = this.pages[--this.currentPage];
         },
         nextPage() {
             if(this.currentPage == this.pageNum - 1) {
                 return;
             }
-            this.notesShow = this.pages[++this.currentPage];
+            this.blogsShow = this.pages[++this.currentPage];
         },
         changeCurrent(current) {
-            console.log(current)
+            // console.log(current)
             this.currentPage = current - 1;
-            this.notesShow = this.pages[current - 1];
+            this.blogsShow = this.pages[current - 1];
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .notes-container {
+    .blogs-container {
         position: relative;
         height: 460px;
         li {

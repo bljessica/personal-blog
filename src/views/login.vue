@@ -2,7 +2,6 @@
     <div class="container">
         <nav-header></nav-header>
         <main>
-            <!-- <my-form :items="loginItems" :type="'login'"></my-form> -->
             <login-form></login-form>
         </main>
         <my-footer></my-footer>
@@ -23,7 +22,6 @@ export default {
     },
     data() {
         return {
-            loginItems: LOGIN_ITEMS
         }
     }
 }
