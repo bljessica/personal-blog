@@ -21,11 +21,16 @@
                 </div>
                 <el-button class="save" @click="saveInfo">保存设置</el-button>
             </div>
-            <el-tabs v-model="activeName" @click="handleClick" class="tabs">
-                <el-tab-pane label="我的笔记" name="first">我的笔记</el-tab-pane>
-                <el-tab-pane label="我的收藏" name="second">我的收藏</el-tab-pane>
-                <el-tab-pane label="我的关注" name="third">我的关注</el-tab-pane>
-                <el-tab-pane label="我的粉丝" name="fourth">我的粉丝</el-tab-pane>
+            <el-tabs v-model="activeName" @click="handleClick" @tab-click="getNotes" class="tabs">
+                <el-tab-pane label="添加笔记" name="addNote">
+                    <add-note-box></add-note-box>
+                </el-tab-pane>
+                <el-tab-pane label="我的笔记" name="myNotes" >
+                    <my-notes ref="notes"></my-notes>
+                </el-tab-pane>
+                <el-tab-pane label="我的收藏" name="myCollections"></el-tab-pane>
+                <el-tab-pane label="我的关注" name="myFollowings"></el-tab-pane>
+                <el-tab-pane label="我的粉丝" name="myFollowers"></el-tab-pane>
             </el-tabs>
         </main>
         <my-footer></my-footer>
@@ -35,17 +40,21 @@
 <script>
 import navHeader from '../components/nav-header';
 import myFooter from '../components/my-footer';
+import addNoteBox from '../components/add-note-box';
+import myNotes from '../components/my-notes';
 import { saveUserInfo } from '../api/user'
 
 export default {
     components: {
         navHeader,
-        myFooter
+        myFooter,
+        addNoteBox,
+        myNotes
     },
     data() {
         return {
             avatarUrl: this.$store.getters.currentUser.avatarUrl,
-            activeName: 'second',
+            activeName: 'addNote',
             nickname: this.$store.getters.currentUser.nickname,
             focusState: false
         }
@@ -121,6 +130,11 @@ export default {
                         type: 'error',
                         duration: 1000
                     }));
+        },
+        getNotes() {
+            if(this.activeName == 'myNotes') {
+                this.$refs.notes.getAllNotes();
+            }
         }
     }
 }
@@ -129,7 +143,7 @@ export default {
 <style lang="scss">
     #main {
         width: 800px;
-        height: 500px;
+        height: 600px;
         position: relative;
         top: -30px;
         margin: 0 auto;
@@ -161,6 +175,8 @@ export default {
                 }
             }
             .avatar-upload {
+                height: 20px;
+                line-height: 20px;
                 border: 1px solid #d9d9d9;
                 font-size: 14px;
                 border-radius: 5px;
@@ -198,7 +214,8 @@ export default {
             }
         }
         .tabs {
-            width: 600px;
+            width: 500px;
+            padding: 0 20px;
             height: 100%;
             position: absolute;
             left: 200px;

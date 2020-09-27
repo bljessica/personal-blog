@@ -1,0 +1,177 @@
+<template>
+    <div class="container">
+        <ul class="notes-container">
+            <li v-for="(item, index) in notesShow" :key="index">
+                <div class="infos">
+                    <span class="kind"><i class="iconfont icon-shuqian"></i>{{ item.kind }}</span>
+                    <!-- <span class="created">{{ item.created }}</span> -->
+                    <span class="updated">最近更新：{{ item.updated }}</span>
+                </div>
+                <p class="title">标题：{{ item.title }}</p>
+                <p class="content">内容：{{ item.content }}</p>
+                <div class="tags">
+                    <el-tag v-for="(label, labelIndex) in item.labels" :key="labelIndex">{{ label }}</el-tag>
+                </div>
+            </li>
+            <el-pagination background layout="prev, pager, next" :page-count="pageNum" @current-change="changeCurrent"
+            :current-page="currentPage + 1" @prev-click="prevPage" @next-click="nextPage"></el-pagination>
+        </ul>
+        <el-button></el-button>
+    </div>
+</template>
+
+<script>
+import { getNotes } from '../api/note';
+export default {
+    data() {
+        return {
+            notes: [],
+            pageSize: 3,
+            pages: [],
+            pageNum: 0,
+            currentPage: 0,
+            notesShow: [],
+            key: 0
+        }
+    },
+    // mounted() {
+    //     this.getAllNotes();
+    //     // this.getPages();
+    // },
+    methods: {
+        getAllNotes() {
+            let that = this;
+            getNotes({
+                userID: that.$store.getters.currentUser.userID
+            }).then(res => {
+                if(res.code == 0) {
+                    that.notes = res.data;
+                }
+                else {
+                    that.$message({
+                        message: '获取笔记失败',
+                        type: 'error',
+                        duration: 1000
+                    });
+                }
+            }).then(() => this.getPages())
+            .catch(err => that.$message({
+                message: '获取笔记失败',
+                type: 'error',
+                duration: 1000
+            }))
+        },
+        getPages() {
+            this.pageNum = Math.ceil(this.notes.length / this.pageSize);
+            //分页笔记数组
+            for(let i = 0; i < this.pageNum; i++){
+                this.pages[i] = this.notes.slice(i * this.pageSize, (i + 1) * this.pageSize);
+            }
+            this.notesShow = this.pages[this.currentPage];
+            // console.log(this.notesShow, this.pages, this.notes, this.pageNum)
+        },
+        prevPage() {
+            if(this.currentPage == 0) {
+                return;
+            }
+            this.notesShow = this.pages[--this.currentPage];
+        },
+        nextPage() {
+            if(this.currentPage == this.pageNum - 1) {
+                return;
+            }
+            this.notesShow = this.pages[++this.currentPage];
+        },
+        changeCurrent(current) {
+            console.log(current)
+            this.currentPage = current - 1;
+            this.notesShow = this.pages[current - 1];
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+    .notes-container {
+        position: relative;
+        height: 460px;
+        li {
+            margin-bottom: 20px;
+            padding: 10px 50px;
+            width: 400px;
+            height: 100px;
+            border-radius: 10px;
+            background: #d9ecff;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 12px;
+            .infos {
+                position: relative;
+                width: 100%;
+                height: 30px;
+                .kind {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    i {
+                        color: #1DA7DA;
+                    }
+                }
+                .updated {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
+            }
+            .title {
+                border-top: 1px solid #d9d9d9;
+                width: 260px;
+                padding: 0 140px 0 0;
+                height: 24px;
+                // font-weight: bold;
+                text-align: left;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                // font-size: 14px;
+            }
+            .content {
+                // border-top: 1px solid #d9d9d9;
+                width: 400px;
+                height: 48px;
+                text-align: left;
+                text-overflow: -o-ellipsis-lastline;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+            .tags {
+                position: relative;
+                top: 5px;
+                .el-tag {
+                    margin-right: 20px;
+                }
+            }
+            &:hover {
+                box-shadow: 3px 3px 10px gainsboro, -3px 3px 10px gainsboro;
+                transition: .5s;
+            }
+        }
+        .el-pagination {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+    
+    .el-button {
+        visibility: hidden;
+        opacity: 0;
+    }
+</style>

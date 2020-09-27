@@ -40,7 +40,7 @@
                 <router-link to="/login"><span class="login" v-if="!$store.getters.logined">登录</span></router-link>
                 <router-link to="/register"><span class="register" v-if="!$store.getters.logined">注册</span></router-link>
                 <!-- 登录后 -->
-                <span v-if="$store.getters.logined" class="greeting">欢迎你，{{ $store.getters.currentUser.nickname }}</span>
+                <span v-if="$store.getters.logined" class="greeting">欢迎你，{{ shortNickname }}</span>
                 <router-link to="/mine"><span v-if="$store.getters.logined">个人中心</span></router-link>
                 <span v-if="$store.getters.logined">
                     <el-button @click="logOut">登出</el-button>
@@ -64,8 +64,23 @@ export default {
             aboutShow: false,
             navItems: NAV_ITEMS,
             title: TITLE,
-            pageKey: 0
+            pageKey: 0,
+            // shortNickname
         }
+    },
+    computed: {
+        shortNickname() {
+            //设置了昵称
+            if(this.$store.state.currentUser.nickname){
+                if(this.$store.state.currentUser.nickname.length > 5) {
+                    return this.$store.state.currentUser.nickname.slice(0, 5) + '...';
+                }
+                return this.$store.state.currentUser.nickname;
+            }
+            else {
+                return '新用户';
+            }
+        },
     },
     methods: {
         showItems(index) {
@@ -244,9 +259,9 @@ export default {
                         transition: .5s;
                     }
                 }
-                // .greeting {
+                // span.greeting {
                 //     // display: inline-block;
-                //     width: 40px;
+                //     width: 60px;
                 //     // height: 100%;
                 //     overflow: hidden;
                 //     text-overflow: ellipsis;

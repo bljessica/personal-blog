@@ -37,6 +37,7 @@ export default {
         toTopButton
     },
     mounted() {
+        let that = this;
         //未获取过用户信息
         if(this.$store.getters.logined && !this.$store.getters.currentUser.nickname){
             let that = this;
@@ -45,14 +46,12 @@ export default {
                 phone: that.$store.getters.currentUser.phone
             }).then(res => {
                 if(res.code == 0){
-                    if(res.data.nickname.length != 0){
-                        this.$store.commit('signIn', {
+                        that.$store.commit('modifyInfo', {
+                            userID: res.data.userID,
                             nickname: res.data.nickname,
                             phone: res.data.phone,
                             avatarUrl: res.data.avatarUrl
                         });
-                        this.pageKey++;
-                    }
                 }
                 else {
                     console.log(res.msg);

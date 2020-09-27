@@ -2,7 +2,8 @@
     <div class="container">
         <nav-header></nav-header>
         <main>
-            <my-form :items="loginItems" :type="'login'"></my-form>
+            <!-- <my-form :items="loginItems" :type="'login'"></my-form> -->
+            <login-form></login-form>
         </main>
         <my-footer></my-footer>
     </div>
@@ -11,15 +12,14 @@
 <script>
 import navHeader from '../components/nav-header'
 import myFooter from '../components/my-footer'
-import myForm from '../components/my-form'
-import { LOGIN_ITEMS } from '../consts/const'
+import loginForm from '../components/login-form'
 
 
 export default {
     components: {
         navHeader,
         myFooter,
-        myForm
+        loginForm
     },
     data() {
         return {

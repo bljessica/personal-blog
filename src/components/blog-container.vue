@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .blog-container {
         width: 1000px;
         margin: 0 auto;

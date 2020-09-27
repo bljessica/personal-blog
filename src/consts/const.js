@@ -42,17 +42,6 @@ const LABELS = [
     {name: '浏览器', left: '300px', top: '250px', color: '#AAB5F0', fontSize: '24px'}
 ];
 
-const LOGIN_ITEMS = [
-    {name: '手机号', placeholder: '请输入手机号', content: '', type: 'number'},
-    {name: '密码', placeholder: '请输入密码', content: '', type: 'password'}
-];
-
-const REGISTER_ITEMS = [
-    {name: '手机号', placeholder: '请输入手机号', content: '', type: 'number'},
-    {name: '昵称', placeholder: '请输入昵称', content: '', type: 'text'},
-    {name: '密码', placeholder: '请输入密码', content: '', type: 'password'},
-    {name: '再次输入密码', placeholder: '请再次输入密码', content: '', type: 'password'}
-];
 
 export {
     NAV_ITEMS, 
@@ -60,7 +49,5 @@ export {
     ENTRANCE_ITEMS,
     CLASSIFY_ITEMS,
     ABOUT_ITEMS,
-    LABELS,
-    LOGIN_ITEMS,
-    REGISTER_ITEMS
+    LABELS
 }
