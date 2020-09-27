@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <ul class="blog-container">
-            <li v-for="(item, index) in blogs" :key="index" class="blog">
+            <li v-for="(item, index) in blogsShow" :key="index" class="blog">
                 <div class="title" :style="{backgroundImage: 'url(' + require('../assets/css3.jpg') + ')'}">
                     <h3>{{ item.title }}</h3>
                 </div>
@@ -23,6 +23,9 @@
                 </ul>
             </li>
         </ul>
+        <el-pagination background layout="prev, pager, next" :page-count="pageNum" @current-change="changeCurrent"
+            :current-page="currentPage + 1" @prev-click="prevPage" @next-click="nextPage">
+        </el-pagination>
     </div>
 </template>
 
@@ -32,6 +35,42 @@ export default {
         blogs: {
             type: Array,
             default: () => []
+        }
+    },
+    data() {
+        return {
+            pageSize: 9,
+            pages: [],
+            pageNum: 0,
+            currentPage: 0,
+            blogsShow: []
+        }
+    },
+    methods: {
+        getPages() {
+            this.pageNum = Math.ceil(this.blogs.length / this.pageSize);
+            //分页笔记数组
+            for(let i = 0; i < this.pageNum; i++){
+                this.pages[i] = this.blogs.slice(i * this.pageSize, (i + 1) * this.pageSize);
+            }
+            this.blogsShow = this.pages[this.currentPage];
+            console.log(this.blogs.length, this.blogsShow.length, this.pages)
+        },
+        prevPage() {
+            if(this.currentPage == 0) {
+                return;
+            }
+            this.blogsShow = this.pages[--this.currentPage];
+        },
+        nextPage() {
+            if(this.currentPage == this.pageNum - 1) {
+                return;
+            }
+            this.blogsShow = this.pages[++this.currentPage];
+        },
+        changeCurrent(current) {
+            this.currentPage = current - 1;
+            this.blogsShow = this.pages[current - 1];
         }
     }
 }
@@ -150,5 +189,8 @@ export default {
     .blog-container::after { //解决space-between在一行个数只有两个时中间会空出来的问题
         content: '';
         width: 300px;
+    }
+    .el-pagination {
+        margin-bottom: 20px;
     }
 </style>

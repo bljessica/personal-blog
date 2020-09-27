@@ -5,24 +5,44 @@
             <span>文章标签</span>
         </div>
         <ul class="label-box">
-            <li v-for="(item, index) in labels" :key="index"  class="animate__animated animate__bounceInDown">
-                <router-link to="/">
+            <li v-for="(item, index) in labels" :key="index" class="animate__animated animate__bounceInDown"
+                @click="selectLabel(item.name)">
+                <!-- <router-link to="/"> -->
                     <span>{{ item.name }}</span>
-                    <span class="num">3</span>
-                </router-link>
+                    <span class="num">{{ item.num }}</span>
+                <!-- </router-link> -->
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-import { LABELS } from '../consts/const'
+import { getAllLabels } from '../api/blog'
+// import { LABELS } from '../consts/const'
 
 export default {
     data() {
         return {
-            labels: LABELS
+            labels: []
         }
+    },
+    mounted() {
+        this.getAllLabels();
+    },
+    methods: {
+        selectLabel(labelName) {
+            this.$emit('selectLabel', labelName)
+        },
+        getAllLabels() {
+            getAllLabels().then(res => {
+                if(res.code == 0) {
+                    this.labels = res.data
+                }
+                else {
+                    console.log(res.msg);
+                }
+            }).catch(err => console.log(err));
+        },
     }
 }
 </script>

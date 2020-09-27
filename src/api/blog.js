@@ -14,8 +14,18 @@ function getAllBlogs() {
     return request(BASE_URL + '/getAllBlogs', 'GET');
 }
 
+function getBlogsByLabel(data) {
+    return request(BASE_URL + '/getBlogsByLabel', 'GET', data);
+}
+
+function getAllLabels() {
+    return request(BASE_URL + '/getAllLabels', 'GET');
+}
+
 export {
     addBlog,
     getBlogs,
-    getAllBlogs
+    getAllBlogs,
+    getBlogsByLabel,
+    getAllLabels
 }
