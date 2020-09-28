@@ -44,6 +44,16 @@ export default new Router({
       path: '/kind/:kind',
       name: 'kind',
       component: () => import('@/views/kind.vue')
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/views/about.vue')
+    },
+    {
+      path: '/leaveMsg',
+      name: 'leaveMsg',
+      component: () => import('@/views/leave-msg.vue')
     }
   ]
 })

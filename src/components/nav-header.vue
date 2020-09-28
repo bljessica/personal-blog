@@ -28,7 +28,8 @@
                     <ul v-if="aboutShow && index == 3" class="about-items" @mouseenter="showItems(3)" @mouseleave="hideItems(3)">
                         <span></span>
                         <li v-for="(item, index) in aboutItems" :key="index">
-                            <a href="">{{ item }}</a>
+                            <router-link :to="item.linkTo">{{ item.name }}</router-link>
+                            <!-- <a href="">{{ item.name }}</a> -->
                             <!-- <router-link :to="{path: '/kind', params: {kind: item}}">{{ item }}</router-link> -->
                         </li>
                     </ul>
@@ -48,14 +49,24 @@
                 </span>
             </div>
         </div>
-        <h1 class="slogan">Learn a little every day</h1>
+        <h1 class="slogan">{{ slogan }}</h1>
     </div>
 </template>
 
 <script>
-import { CLASSIFY_ITEMS, ABOUT_ITEMS, NAV_ITEMS, TITLE, NAV_ICONS } from '../consts/const';
+import { CLASSIFY_ITEMS, ABOUT_ITEMS, NAV_ITEMS, TITLE, NAV_ICONS, SLOGON } from '../consts/const';
 
 export default {
+    props: {
+        // title: {
+        //     type: String,
+        //     default: TITLE
+        // },
+        slogan: {
+            type: String,
+            default: SLOGON
+        }
+    },
     data() {
         return {
             icons: NAV_ICONS,

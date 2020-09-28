@@ -4,7 +4,7 @@ const NAV_ITEMS = [
     { name: '标签', linkTo: '/label' },
     // { name: '分类', linkTo: '/kind/ ' },
     { name: '分类', linkTo: {name: 'kind', params: {kind: '/'}} },
-    { name: '关于', linkTo: '/' },
+    { name: '关于', linkTo: '/about' },
     { name: '我的书单', linkTo: '/' },
 ];
 
@@ -12,12 +12,14 @@ const NAV_ICONS = ['icon-fl-jia', 'icon-biaoqian', 'icon-shuqian', 'icon-touxian
 
 const TITLE = "Deng's Blog";
 
+const SLOGON = 'Learn a little every day';
+
 const ENTRANCE_ITEMS = ['HTML5', 'CSS3', 'JavaScript', 'ES6', 'Node.js', 'MongoDB', 
     '操作系统原理', '计算机网络', 'Vue.js', 'Git']
 
 const CLASSIFY_ITEMS = ['基本技能', '前端技术', '后端技术', '运维知识', '读书笔记', '生活小记', '资源整理'];
 
-const ABOUT_ITEMS = ['关于博客', '留言小本'];
+const ABOUT_ITEMS = [{name: '关于博客', linkTo: '/about'}, {name: '留言小本', linkTo: '/leaveMsg'}];
 
 // const LABELS = ['Web开发', 'windows', '工具', 'HTML5/CSS3', 'Git', '规范', '回顾', '总结', 
 //     '阅读', '小记', 'JavaScript', 'MySQL', 'Linux', 'MongoDB', 'Node.js', '数据结构', 
@@ -49,13 +51,16 @@ const LABELS = [
     {name: '计算机网络', left: '250px', top: '220px', color: '#0cf', fontSize: '16px'}
 ];
 
+const ABOUT = `这是我的个人博客，技术还比较不成熟，欢迎大家指点~`;
 
 export {
     NAV_ITEMS, 
     NAV_ICONS,
     TITLE,
+    SLOGON,
     ENTRANCE_ITEMS,
     CLASSIFY_ITEMS,
     ABOUT_ITEMS,
-    LABELS
+    LABELS,
+    ABOUT
 }
