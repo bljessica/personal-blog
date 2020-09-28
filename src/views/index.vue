@@ -2,11 +2,8 @@
     <div id="container"> 
         <nav-header></nav-header>
         <main class="main">
-            <entrance :items="entranceKinds"></entrance>
+            <entrance :items="entranceKinds" :title="'</>技术笔记入口'"></entrance>
             <blog-container :blogs="blogs" ref="blogs"></blog-container>
-            <!-- <el-pagination background layout="prev, pager, next" :page-count="pageNum" @current-change="changeCurrent"
-                :current-page="currentPage + 1" @prev-click="prevPage" @next-click="nextPage">
-            </el-pagination> -->
         </main> 
         <to-top-button></to-top-button>
         <my-footer></my-footer>
@@ -27,12 +24,7 @@ export default {
     data() {
         return {
             entranceKinds: ENTRANCE_ITEMS,
-            blogs: [],
-            // pageSize: 9,
-            // pages: [],
-            // pageNum: 0,
-            // currentPage: 0,
-            // blogsShow: []
+            blogs: []
         }
     },
     components: {
@@ -84,31 +76,7 @@ export default {
             })
             .then(() => that.$refs.blogs.getPages())
             .catch(err => console.log(err));
-        },
-        // getPages() {
-        //     this.pageNum = Math.ceil(this.blogs.length / this.pageSize);
-        //     //分页笔记数组
-        //     for(let i = 0; i < this.pageNum; i++){
-        //         this.pages[i] = this.blogs.slice(i * this.pageSize, (i + 1) * this.pageSize);
-        //     }
-        //     this.blogsShow = this.pages[this.currentPage];
-        // },
-        // prevPage() {
-        //     if(this.currentPage == 0) {
-        //         return;
-        //     }
-        //     this.blogsShow = this.pages[--this.currentPage];
-        // },
-        // nextPage() {
-        //     if(this.currentPage == this.pageNum - 1) {
-        //         return;
-        //     }
-        //     this.blogsShow = this.pages[++this.currentPage];
-        // },
-        // changeCurrent(current) {
-        //     this.currentPage = current - 1;
-        //     this.blogsShow = this.pages[current - 1];
-        // }
+        }
     }
 }
 </script>
@@ -124,8 +92,5 @@ export default {
     }
     .main {
         width: 100%;
-        // .el-pagination {
-        //     margin-bottom: 20px;
-        // }
     }
 </style>

@@ -18,7 +18,8 @@
                 </div>
                 <ul class="labels">
                     <li v-for="(label, index) in item.labels" :key="index" class="label">
-                        <a href=""><span>{{ label }}</span></a>
+                        <router-link :to="{name: 'label', params: {label: label}}"><span v-if="index < 3">{{ label }}</span></router-link>
+                        <router-link :to="'/label'"><span v-if="index == 3">...</span></router-link>
                     </li>
                 </ul>
             </li>
@@ -53,8 +54,12 @@ export default {
             for(let i = 0; i < this.pageNum; i++){
                 this.pages[i] = this.blogs.slice(i * this.pageSize, (i + 1) * this.pageSize);
             }
-            this.blogsShow = this.pages[this.currentPage];
-            console.log(this.blogs.length, this.blogsShow.length, this.pages)
+            if(this.pageNum == 0) {
+                this.blogsShow = this.pages = [];
+            }
+            else {
+                this.blogsShow = this.pages[this.currentPage];
+            }
         },
         prevPage() {
             if(this.currentPage == 0) {
@@ -159,9 +164,15 @@ export default {
                 padding: 10px 20px;
                 display: flex;
                 overflow: hidden;
-                .label {
+                .label{
                     // width: 60px;
-                    padding: 0 10px;
+                        // display: inline-block;
+
+                    span {
+                        // display: inline-block;
+                        padding: 0 10px;
+
+                    }
                     height: 24px;
                     margin-top: 3px;
                     margin-left: 5px;

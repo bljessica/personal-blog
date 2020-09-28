@@ -1,9 +1,13 @@
 <template>
     <div class="entrance">
-        <h2>&lt;/&gt;技术笔记入口</h2>
+        <!-- <h2>&lt;/&gt;技术笔记入口</h2> -->
+        <h2>{{ title }}</h2>
         <ul class="kinds">
             <li v-for="(item, index) in items" :key="index" class="animate__animated animate__bounceInDown">
-                <a href="">{{ item }}</a>
+                <!-- @click="navToLabel(item)"> -->
+                <router-link :to="{name: 'label', params: {label: item}}">
+                    {{ item }}
+                </router-link>
                 <div class="light to-right"></div>
                 <div class="light to-left"></div>
             </li>
@@ -14,10 +18,22 @@
 <script>
 export default {
     props: {
+        title: {
+            type: String,
+            default: ''
+        },
         items: {
             type: Array,
             default: () => []
         }
+    },
+    methods: {
+        // navToLabel(item) {
+        //     this.router.push({
+        //         path: '/label',
+
+        //     })
+        // }
     }
 }
 </script>

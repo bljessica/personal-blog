@@ -3,7 +3,14 @@ import Router from 'vue-router'
 
 Vue.use(Router);
 
+// 解决重复点击导航路由报错
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+}
+
 export default new Router({
+  // mode: 'history',
   routes: [
     {
       path: '/',
@@ -32,6 +39,11 @@ export default new Router({
       meta: {
         requireAuth: true
       }
+    },
+    {
+      path: '/kind/:kind',
+      name: 'kind',
+      component: () => import('@/views/kind.vue')
     }
   ]
 })

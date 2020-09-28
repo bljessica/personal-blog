@@ -33,7 +33,18 @@ router.beforeEach((to, from, next) => {
   else {
     next();
   }
-})
+});
+
+//跳转路由后回到顶部
+router.afterEach((to, from, next) => {
+  // chrome
+  document.body.scrollTop = 0
+  // firefox
+  document.documentElement.scrollTop = 0
+  // safari
+  window.pageYOffset = 0
+  next();
+});
 
 /* eslint-disable no-new */
 new Vue({

@@ -22,10 +22,15 @@ function getAllLabels() {
     return request(BASE_URL + '/getAllLabels', 'GET');
 }
 
+function getLabelsByKind(data) {
+    return request(BASE_URL + '/getLabelsByKind', 'GET', data);
+}
+
 export {
     addBlog,
     getBlogs,
     getAllBlogs,
     getBlogsByLabel,
-    getAllLabels
+    getAllLabels,
+    getLabelsByKind
 }
