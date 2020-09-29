@@ -132,15 +132,15 @@ export default {
                     }));
         },
         getblogs() {
-            if(this.activeName == 'myblogs') {
-                this.$refs.blogs.getAllblogs();
+            if(this.activeName == 'myBlogs') {
+                this.$refs.blogs.getAllBlogs();
             }
         }
     }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     #main {
         width: 800px;
         height: 600px;

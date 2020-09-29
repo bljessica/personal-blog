@@ -255,7 +255,7 @@ export default {
                 font-size: 14px;
                 span {
                     display: inline-block;
-                    height: 100%;
+                    // height: 100%;
                     padding: 0 10px 0 8px;
                     cursor: pointer;
                     color: white;

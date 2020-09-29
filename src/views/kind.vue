@@ -79,7 +79,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
     .el-button {
         display: none;
     }

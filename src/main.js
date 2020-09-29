@@ -43,7 +43,7 @@ router.afterEach((to, from, next) => {
   document.documentElement.scrollTop = 0
   // safari
   window.pageYOffset = 0
-  next();
+  // next();
 });
 
 /* eslint-disable no-new */

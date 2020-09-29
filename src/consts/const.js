@@ -4,8 +4,8 @@ const NAV_ITEMS = [
     { name: '标签', linkTo: '/label' },
     // { name: '分类', linkTo: '/kind/ ' },
     { name: '分类', linkTo: {name: 'kind', params: {kind: '/'}} },
-    { name: '关于', linkTo: '/about' },
-    { name: '我的书单', linkTo: '/' },
+    { name: '关于', linkTo: '/about' }
+    // { name: '我的书单', linkTo: '/' },
 ];
 
 const NAV_ICONS = ['icon-fl-jia', 'icon-biaoqian', 'icon-shuqian', 'icon-touxiang', 'icon-shu'];

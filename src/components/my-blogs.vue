@@ -41,19 +41,20 @@ export default {
             getBlogs({
                 userID: that.$store.getters.currentUser.userID
             }).then(res => {
+                // conole.log(res, that.$store.getters.currentUser)
                 if(res.code == 0) {
                     that.blogs = res.data;
                 }
                 else {
                     that.$message({
-                        message: '获取笔记失败',
+                        message: '获取博客失败',
                         type: 'error',
                         duration: 1000
                     });
                 }
             }).then(() => that.getPages())
             .catch(err => that.$message({
-                message: '获取笔记失败',
+                message: '获取博客失败',
                 type: 'error',
                 duration: 1000
             }))
