@@ -34,7 +34,16 @@
                         </li>
                     </ul>
                 </li>
-                <li><i class="iconfont icon-sousuo search"></i></li>
+                <li @click="search = true"><i class="iconfont icon-sousuo search"></i></li>
+                <!-- <li class="search-input"> -->
+                <!-- <el-input class="search-input" type="text" @blur="search = false"
+                    placeholder="请输入搜索内容" :style="{opacity: search == true? 1: 0}"
+                    v-focus="search" v-model="searchContent">
+                </el-input> -->
+                <input class="search-input" type="text" @blur="search = false"
+                    placeholder="请输入搜索内容" :style="{opacity: search == true? 1: 0}"
+                    v-focus="search" v-model="searchContent">
+                        <!-- </li> -->
             </ul>
             <!-- 登录注册 -->
             <div class="user" :key="pageKey">
@@ -58,10 +67,6 @@ import { CLASSIFY_ITEMS, ABOUT_ITEMS, NAV_ITEMS, TITLE, NAV_ICONS, SLOGON } from
 
 export default {
     props: {
-        // title: {
-        //     type: String,
-        //     default: TITLE
-        // },
         slogan: {
             type: String,
             default: SLOGON
@@ -77,6 +82,19 @@ export default {
             navItems: NAV_ITEMS,
             title: TITLE,
             pageKey: 0,
+            search: false,
+            searchContent: ''
+        }
+    },
+    directives: {
+        //自定义昵称输入框聚焦事件
+        focus: {
+            update(el, params) {
+                if(params.value){
+                    console.log(999, el, params.value)
+                    el.focus();
+                }
+            }
         }
     },
     computed: {
@@ -94,6 +112,10 @@ export default {
         },
     },
     methods: {
+        // changeSearch() {
+        //     console.log(324234)
+        //     this.search = true;
+        // },
         showItems(index) {
             if(index == 2){
                 this.classifyShow = true;
@@ -146,7 +168,7 @@ export default {
             width: 100%;
             position: fixed;
             background: #1DA7DA;
-            z-index: 2001;
+            z-index: 1501;
             .title {
                 position: absolute;
                 left: 100px;
@@ -197,6 +219,7 @@ export default {
                         position: relative;
                         top: 2px;
                     }
+                    
                     .classify-items, .about-items {
                         padding: 0;
                         position: absolute;
@@ -244,6 +267,20 @@ export default {
                         transform: rotate(180deg);
                         transition: .5s;
                     }
+                }
+                .search-input {
+                    display: inline-block;
+                    margin-left: 10px;
+                    width: 180px;
+                    padding: 0 10px;
+                    height: 30px;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    outline: none;
+                    border: none;
+                    // :hover {
+                    //     background: #1DA7DA;
+                    // }
                 }
             }
             .user {

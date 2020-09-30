@@ -17,7 +17,10 @@
                 </div>
                 <div class="title">{{ title }}</div>
                 <!-- <div class="content" v-html="content"></div> -->
-                <mavon-editor class="content"  :toolbarsFlag=false :defaultOpen="'preview'" :navigation=true :subfield=false v-model="content"></mavon-editor>
+                <div class="md-wrapper">
+                    <mavon-editor class="content" :toolbarsFlag=false :defaultOpen="'preview'" 
+                        :navigation=true :subfield=false v-model="content"></mavon-editor>
+                </div>
             </div>
             <!-- <div class="catalog">
                 <div class="title">目录</div>
@@ -95,6 +98,10 @@ export default {
 }
 </script>
 
+<style>
+/* 这个全局样式标签不上少，否则深度作用选择器就失效了 */
+</style>
+
 <style lang="scss" scoped>
     .el-button {
         display: none;
@@ -152,8 +159,11 @@ export default {
                     margin-left: 40px;
                 }
             }
+            .md-wrapper >>> .v-note-wrapper .v-note-panel .v-note-show .v-show-content {
+                    width: 750px;
+                    padding-right: 0;
+                }
             .content {
-                // margin-top: 30px;
                 width: 1000px;
             }
             .title {

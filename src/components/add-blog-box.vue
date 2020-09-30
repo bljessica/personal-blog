@@ -16,7 +16,7 @@
             <!-- <el-input type="textarea" autosize placeholder="请输入博客内容"
                 v-model="content">
             </el-input> -->
-            <mavon-editor style="height: 500px"  :defaultOpen="'edit'" v-model="content" ref="md" @change="mdChange"></mavon-editor>
+            <mavon-editor style="height: 500px" :placeholder="'请输入文本'" :defaultOpen="'edit'" v-model="content" ref="md" @change="mdChange"></mavon-editor>
         </div>
         <!-- 标签 -->
         <el-select v-model="addedLabel" placeholder="请选择标签类型" @change="addLabel" class="li">
