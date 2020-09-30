@@ -82,14 +82,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    // * {
-    //     padding: 0;
-    //     margin: 0;
-    // }
-    // body {
-    //     font-family: 'Microsoft YaHei';
-    //     background: #F7F7F7;
-    // }
     .main {
         width: 100%;
     }

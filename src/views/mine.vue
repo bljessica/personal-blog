@@ -21,7 +21,7 @@
                 </div>
                 <el-button class="save" @click="saveInfo">保存设置</el-button>
             </div>
-            <el-tabs v-model="activeName" @click="handleClick" @tab-click="getblogs" class="tabs">
+            <el-tabs v-model="activeName" @click="handleClick" stretch @tab-click="getblogs" class="tabs">
                 <el-tab-pane label="添加博客" name="addBlog">
                     <add-blog-box></add-blog-box>
                 </el-tab-pane>
@@ -142,8 +142,10 @@ export default {
 
 <style lang="scss" scoped>
     #main {
-        width: 800px;
-        height: 600px;
+        min-height: 980px;
+        width: 1000px;
+        // overflow: hidden;
+        // height: 600px;
         position: relative;
         top: -30px;
         margin: 0 auto;
@@ -214,9 +216,9 @@ export default {
             }
         }
         .tabs {
-            width: 500px;
+            width: 760px;
             padding: 0 20px;
-            height: 100%;
+            // height: 100%;
             position: absolute;
             left: 200px;
             top: 20px;

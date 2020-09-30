@@ -13,9 +13,10 @@
         </div>
         <!-- 内容 -->
         <div class="content li">
-            <el-input type="textarea" autosize placeholder="请输入博客内容"
+            <!-- <el-input type="textarea" autosize placeholder="请输入博客内容"
                 v-model="content">
-            </el-input>
+            </el-input> -->
+            <mavon-editor style="height: 500px"  :defaultOpen="'edit'" v-model="content" ref="md" @change="mdChange"></mavon-editor>
         </div>
         <!-- 标签 -->
         <el-select v-model="addedLabel" placeholder="请选择标签类型" @change="addLabel" class="li">
@@ -23,6 +24,9 @@
             </el-option>
         </el-select>
         <div class="labels-box li">
+            <el-tag v-if="labels.length == 0" :disable-transitions="false">
+                暂无标签
+            </el-tag>
             <el-tag v-for="(item, index) in labels" :key="index"
                 closable :disable-transitions="false" @close="handleClose(item)">
                 {{ item }}
@@ -34,6 +38,8 @@
 </template>
 
 <script>
+import { mavonEditor } from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css'
 import { CLASSIFY_ITEMS, LABELS } from '../consts/const';
 import { addBlog } from '../api/blog';
 
@@ -46,10 +52,17 @@ export default {
             labels: [],
             allKinds: CLASSIFY_ITEMS,
             allLabels: LABELS,
-            addedLabel: ''
+            addedLabel: '',
+            html: ''//markdown转的html
         }
     },
+    components: {
+        mavonEditor
+    },
     methods: {
+        mdChange(value, render) {
+            this.html = render
+        },
         handleClose(name) {
             this.labels.splice(this.labels.indexOf(name), 1);
         },
@@ -72,10 +85,12 @@ export default {
                 return;
             }
             let that = this;
+            // console.log(this.content)
+            // console.log(this.html)
             addBlog({
                 userID: that.$store.getters.currentUser.userID,
                 title: that.title,
-                content: that.content,
+                content: that.html,
                 kind: that.kind,
                 labels: that.labels
             }).then(res => {
@@ -119,6 +134,9 @@ export default {
         .li {
             width: 100%;
             margin-bottom: 20px;
+            // &.content.md {
+            //     height: 1000px;
+            // }
         }
         .labels-box .el-tag {
             margin-right: 20px;

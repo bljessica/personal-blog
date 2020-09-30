@@ -144,7 +144,7 @@ export default {
             margin-top: 20px;
         }
         .count {
-            margin-top: 40px;
+            margin: 40px 0 10px 0;
             font-weight: bold;
             font-size: 20px;
             text-align: left;

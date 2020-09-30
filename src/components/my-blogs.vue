@@ -1,14 +1,15 @@
 <template>
     <div class="container">
         <ul class="blogs-container">
-            <li v-for="(item, index) in blogsShow" :key="index">
+            <li v-for="(item, index) in blogsShow" :key="index" @click="toBlog(item)">
                 <div class="infos">
                     <span class="kind"><i class="iconfont icon-shuqian"></i>{{ item.kind }}</span>
                     <!-- <span class="created">{{ item.created }}</span> -->
                     <span class="updated">最近更新：{{ item.updated }}</span>
                 </div>
                 <p class="title">标题：{{ item.title }}</p>
-                <p class="content">内容：{{ item.content }}</p>
+                <!-- <p class="content" v-html="'内容：'+ item.content"></p> -->
+                <p class="content">内容：{{ getContent(item.content) }}</p>
                 <div class="tags">
                     <el-tag v-for="(label, labelIndex) in item.labels" :key="labelIndex">{{ label }}</el-tag>
                 </div>
@@ -35,7 +36,21 @@ export default {
             key: 0
         }
     },
+    computed: {
+        
+    },
     methods: {
+        getContent(content) {
+            let start = content.indexOf('</a>'), end = content.indexOf('</h');
+            if(start == -1) {
+                start = content.indexOf('<p'), end = content.indexOf('</p');
+                return content.substring(start + 3, end);
+            }
+            return content.substring(start + 4, end);
+        },
+        toBlog(item) {
+            this.$router.push({name: 'blog', params: {id: item.blogID}});
+        },
         getAllBlogs() {
             let that = this;
             getBlogs({
@@ -93,10 +108,11 @@ export default {
     .blogs-container {
         position: relative;
         height: 460px;
+        margin-top: 20px;
         li {
             margin-bottom: 20px;
             padding: 10px 50px;
-            width: 400px;
+            width: 660px; 
             height: 100px;
             border-radius: 10px;
             background: #d9ecff;
@@ -125,8 +141,8 @@ export default {
                 }
             }
             .title {
-                border-top: 1px solid #d9d9d9;
-                width: 260px;
+                // border-top: 1px solid #d9d9d9;
+                width: 520px;
                 padding: 0 140px 0 0;
                 height: 24px;
                 // font-weight: bold;
@@ -138,7 +154,7 @@ export default {
             }
             .content {
                 // border-top: 1px solid #d9d9d9;
-                width: 400px;
+                width: 660px;
                 height: 48px;
                 text-align: left;
                 text-overflow: -o-ellipsis-lastline;

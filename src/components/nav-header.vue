@@ -131,7 +131,7 @@ export default {
     }
 }
 </script>
-
+ 
 <style lang="scss" scoped>
     .header {
         height: 200px;
@@ -146,7 +146,7 @@ export default {
             width: 100%;
             position: fixed;
             background: #1DA7DA;
-            z-index: 1001;
+            z-index: 2001;
             .title {
                 position: absolute;
                 left: 100px;

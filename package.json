@@ -13,6 +13,7 @@
     "clone-deep": "^4.0.1",
     "element-ui": "^2.13.2",
     "es6-promise": "^4.2.8",
+    "mavon-editor": "^2.9.0",
     "shallow-clone": "^3.0.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",

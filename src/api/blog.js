@@ -22,8 +22,16 @@ function getAllLabels() {
     return request(BASE_URL + '/getAllLabels', 'GET');
 }
 
-function getLabelsByKind(data) {
-    return request(BASE_URL + '/getLabelsByKind', 'GET', data);
+function getBlogsByKind(data) {
+    return request(BASE_URL + '/getBlogsByKind', 'GET', data);
+}
+
+function getBlog(data) {
+    return request(BASE_URL + '/getBlog', 'GET', data);
+}
+
+function search(data) {
+    return request(BASE_URL + '/search', 'GET', data);
 }
 
 export {
@@ -32,5 +40,7 @@ export {
     getAllBlogs,
     getBlogsByLabel,
     getAllLabels,
-    getLabelsByKind
+    getBlogsByKind,
+    getBlog,
+    search
 }

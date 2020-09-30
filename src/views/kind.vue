@@ -18,7 +18,7 @@ import blogContainer from '../components/blog-container';
 import myFooter from '../components/my-footer';
 import toTopButton from '../components/to-top-button';
 import { CLASSIFY_ITEMS } from '../consts/const';
-import { getLabelsByKind } from '../api/blog'
+import { getBlogsByKind } from '../api/blog'
 
 
 export default {
@@ -50,7 +50,7 @@ export default {
         selectKind(kind) {
             this.select = kind;
             let that = this;
-            getLabelsByKind({
+            getBlogsByKind({
                 kind: kind
             }).then(res => {
                 if(res.code == 0){

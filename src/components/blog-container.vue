@@ -1,12 +1,12 @@
 <template>
     <div class="container">
         <ul class="blog-container">
-            <li v-for="(item, index) in blogsShow" :key="index" class="blog">
+            <li v-for="(item, index) in blogsShow" :key="index" class="blog" @click="toBlog(item)">
                 <div class="title" :style="{backgroundImage: 'url(' + require('../assets/css3.jpg') + ')'}">
                     <h3>{{ item.title }}</h3>
                 </div>
                 <div class="content">
-                    <p style="-webkit-box-orient: vertical;">{{ item.content }}</p>
+                    <p style="-webkit-box-orient: vertical;">{{ getContent(item.content) }}</p>
                     <div class="time">
                         <i class="iconfont icon-59"></i>
                         <span>{{ item.created }}</span>
@@ -24,7 +24,7 @@
                 </ul>
             </li>
         </ul>
-        <el-pagination background layout="prev, pager, next" :page-count="pageNum" @current-change="changeCurrent"
+        <el-pagination v-if="blogs.length != 0" background layout="prev, pager, next" :page-count="pageNum" @current-change="changeCurrent"
             :current-page="currentPage + 1" @prev-click="prevPage" @next-click="nextPage">
         </el-pagination>
     </div>
@@ -48,6 +48,17 @@ export default {
         }
     },
     methods: {
+        getContent(content) {
+            let start = content.indexOf('</a>'), end = content.indexOf('</h');
+            if(start == -1) {
+                start = content.indexOf('<p'), end = content.indexOf('</p');
+                return content.substring(start + 3, end);
+            }
+            return content.substring(start + 4, end);
+        },
+        toBlog(item) {
+            this.$router.push({name: 'blog', params: {id: item.blogID}});
+        },
         getPages() {
             this.pageNum = Math.ceil(this.blogs.length / this.pageSize);
             //分页笔记数组
@@ -99,7 +110,8 @@ export default {
             height: 350px;
             border-radius: 10px;
             cursor: pointer;
-            margin-bottom: 30px;            
+            margin-bottom: 30px;  
+            cursor: pointer;          
             .title {
                 width: 300px;
                 height: 200px;
@@ -152,10 +164,14 @@ export default {
                     position: absolute;
                     right: 20px;
                     bottom: 10px;
-                    a:hover {
+                    &:hover {
                         color: #42B983;
                         font-weight: bold;
-                        text-decoration: underline;
+                        a {
+                            color: #42B983;
+                            font-weight: bold;
+                            text-decoration: underline;
+                        }
                     }
                 }
             }

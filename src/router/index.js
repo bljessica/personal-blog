@@ -54,6 +54,11 @@ export default new Router({
       path: '/leaveMsg',
       name: 'leaveMsg',
       component: () => import('@/views/leave-msg.vue')
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: () => import('@/views/blog.vue')
     }
   ]
 })
