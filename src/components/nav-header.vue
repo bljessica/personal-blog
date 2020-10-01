@@ -35,15 +35,21 @@
                     </ul>
                 </li>
                 <li @click="search = true"><i class="iconfont icon-sousuo search"></i></li>
-                <!-- <li class="search-input"> -->
-                <!-- <el-input class="search-input" type="text" @blur="search = false"
-                    placeholder="请输入搜索内容" :style="{opacity: search == true? 1: 0}"
-                    v-focus="search" v-model="searchContent">
-                </el-input> -->
-                <input class="search-input" type="text" @blur="search = false"
-                    placeholder="请输入搜索内容" :style="{opacity: search == true? 1: 0}"
-                    v-focus="search" v-model="searchContent">
-                        <!-- </li> -->
+                <div class="search-box">
+                    <!-- 搜索输入框 -->
+                    <input class="search-input" type="text" @blur="inputBlur"
+                        placeholder="请输入搜索内容" :style="{opacity: search == true? 1: 0}"
+                        v-focus="search" v-model="searchContent" @keyup.enter="searchBlogs">
+                    <!-- 搜索出的博客信息 -->
+                    <ul class="searchedBlogs" v-if="searchedBlogsShow">
+                        <li v-for="(item, index) in searchedBlogs" :key="index" @click="goToBlog(item.blogID)">
+                            <!-- <router-link :to="{name: 'blog', params: {id: item.blogID}}"> -->
+                                <span class="title">{{ item.title }}</span>
+                                <span class="kind">{{ item.kind }}</span>
+                            <!-- </router-link> -->
+                        </li>
+                    </ul>
+                </div>
             </ul>
             <!-- 登录注册 -->
             <div class="user" :key="pageKey">
@@ -57,6 +63,7 @@
                     <el-button @click="logOut">登出</el-button>
                 </span>
             </div>
+            <el-button></el-button>
         </div>
         <h1 class="slogan">{{ slogan }}</h1>
     </div>
@@ -64,6 +71,7 @@
 
 <script>
 import { CLASSIFY_ITEMS, ABOUT_ITEMS, NAV_ITEMS, TITLE, NAV_ICONS, SLOGON } from '../consts/const';
+import { search } from '../api/blog';
 
 export default {
     props: {
@@ -83,7 +91,10 @@ export default {
             title: TITLE,
             pageKey: 0,
             search: false,
-            searchContent: ''
+            searchContent: '',
+            searchedBlogsShow: false,
+            searchedBlogs: [],
+            // goToBlogID: ''
         }
     },
     directives: {
@@ -91,7 +102,6 @@ export default {
         focus: {
             update(el, params) {
                 if(params.value){
-                    console.log(999, el, params.value)
                     el.focus();
                 }
             }
@@ -112,10 +122,54 @@ export default {
         },
     },
     methods: {
-        // changeSearch() {
-        //     console.log(324234)
-        //     this.search = true;
-        // },
+        inputBlur() {
+            this.search = false;
+            setTimeout(() => {
+                this.searchedBlogsShow = false;
+            }, 1000);
+        },
+        goToBlog(id) {
+            this.searchedBlogsShow = true;
+            this.$router.push({name: 'blog', params: {id: id}})
+        },
+        searchBlogs() {
+            let that = this;
+            search({
+                content: that.searchContent
+            }).then(res => {
+                if(res.code == 0) {
+                    if(res.data.length != 0) {
+                        that.$message({
+                            message: '查询成功',
+                            type: 'success',
+                            duration: 1000
+                        });
+                        that.searchedBlogs = res.data;
+                        that.searchedBlogsShow = true;
+                    }
+                    else {
+                        that.$message({
+                            message: '暂无相关博客',
+                            type: 'info',
+                            duration: 1000
+                        });
+                    }
+                }
+                else {
+                    that.$message({
+                        message: res.msg,
+                        type: 'error',
+                        duration: 1000
+                    });
+                }
+            }).catch(err => {
+                that.$message({
+                    message: err,
+                    type: 'error',
+                    duration: 1000
+                });
+            })
+        },
         showItems(index) {
             if(index == 2){
                 this.classifyShow = true;
@@ -155,6 +209,9 @@ export default {
 </script>
  
 <style lang="scss" scoped>
+    .el-button {
+        display: none;
+    }
     .header {
         height: 200px;
         background: #1DA7DA;
@@ -268,19 +325,68 @@ export default {
                         transition: .5s;
                     }
                 }
-                .search-input {
-                    display: inline-block;
-                    margin-left: 10px;
+                .search-box {
+                    position: relative;
                     width: 180px;
-                    padding: 0 10px;
-                    height: 30px;
-                    border-radius: 5px;
-                    font-size: 14px;
-                    outline: none;
-                    border: none;
-                    // :hover {
-                    //     background: #1DA7DA;
-                    // }
+                    display: inline-block;
+                    .search-input {
+                        display: inline-block;
+                        margin-left: 10px;
+                        width: 180px;
+                        padding: 0 10px;
+                        height: 30px;
+                        border-radius: 5px;
+                        font-size: 14px;
+                        outline: none;
+                        border: none;
+                    }
+                    .searchedBlogs {
+                        position: absolute;
+                        background: white;
+                        top: 40px;
+                        width: 260px;
+                        left: 10px;
+                        border-radius: 10px;
+                        z-index: 2000;
+                        li {
+                            padding: 0;
+                            width: 240px;
+                            height: 30px;
+                            border-bottom: 1px solid #E0E0E0;
+                            position: relative;
+                            a {
+                                color: rgba(0, 0, 0, 0.7);
+                            }
+                            .title {
+                                text-align: left;
+                                display: inline-block;
+                                font-weight: normal;
+                                font-size: 14px;
+                                position: absolute;
+                                left: 10px;
+                                top: 0;
+                                line-height: 30px;
+                                height: 30px;
+                                width: 150px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                            }
+                            .kind {
+                                font-size: 14px;
+                                position: absolute;
+                                right: 10px;
+                                top: 0;
+                                height: 30px;
+                                width: 60px;
+                                text-align: right;
+                                line-height: 30px;
+                            }
+                        }
+                        // li:last-of-type {
+                        //     border: none;
+                        // }
+                    }
                 }
             }
             .user {

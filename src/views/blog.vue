@@ -63,6 +63,11 @@ export default {
     created() {
         this.getBlog();
     },
+    watch: {
+        '$route' (to, from) {
+            this.$router.go(0);
+        }
+    },
     methods: {
         getBlog() {
             let id = this.$route.params.id;
