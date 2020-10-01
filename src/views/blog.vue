@@ -14,6 +14,12 @@
                 <div class="timestamp">
                     <span class="created"><i class="iconfont icon-59"></i>发布日期：{{ createTime }}</span>
                     <span class="updated"><i class="iconfont icon-59"></i>最近更新：{{ updateTime }}</span>
+                    <div class="collect">
+                        <i class="el-icon-star-off" v-if="collected != true" @click="collect"></i>
+                        <i class="el-icon-star-on" v-if="collected == true" @click="collect"></i>
+                        <span>收藏此题</span>
+                    </div>
+                    
                 </div>
                 <div class="title">{{ title }}</div>
                 <!-- <div class="content" v-html="content"></div> -->
@@ -57,7 +63,8 @@ export default {
             content: '',
             // catalog: '',
             // links: '',
-            title: ''
+            title: '',
+            collected: false
         }
     },
     created() {
@@ -69,6 +76,10 @@ export default {
         }
     },
     methods: {
+        collect() {
+            this.collected = !this.collected;
+            // console.log(this.collected)
+        },
         getBlog() {
             let id = this.$route.params.id;
             let that = this;
@@ -89,16 +100,6 @@ export default {
                 duration: 1000
             }));
         },
-        // getLinks() {
-        //     let start = this.content.indexOf('<h'), end = this.content.indexOf('</h');
-        //     let tmp = this.content;
-        //     while(start != -1){
-        //         this.links += tmp.substring(start, end + 5) + '\n';
-        //         tmp = tmp.substring(end + 5);
-        //         start = tmp.indexOf('<h');
-        //         end = tmp.indexOf('</h');
-        //     }
-        // }
     }
 }
 </script>
@@ -160,8 +161,27 @@ export default {
                 text-align: left;
                 color: #525f7f;
                 font-size: 14px;
+                position: relative;
                 .updated {
                     margin-left: 40px;
+                }
+                .collect {
+                    display: inline-block;
+                    position: absolute;
+                    right: 0;
+                    top: -8px;
+                    // 设置文字不能被选中
+                    -webkit-user-select:none;
+                    -moz-user-select:none;
+                    -ms-user-select:none;
+                    user-select:none;
+                    i {
+                        color: rgb(253, 253, 31);
+                        font-size: 26px;
+                        position: relative;
+                        top: 4px;
+                        cursor: pointer;
+                    }
                 }
             }
             .md-wrapper >>> .v-note-wrapper .v-note-panel .v-note-show .v-show-content {

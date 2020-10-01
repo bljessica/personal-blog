@@ -29,8 +29,8 @@
                     <my-blogs ref="blogs"></my-blogs>
                 </el-tab-pane>
                 <el-tab-pane label="我的收藏" name="myCollections"></el-tab-pane>
-                <el-tab-pane label="我的关注" name="myFollowings"></el-tab-pane>
-                <el-tab-pane label="我的粉丝" name="myFollowers"></el-tab-pane>
+                <!-- <el-tab-pane label="我的关注" name="myFollowings"></el-tab-pane> -->
+                <!-- <el-tab-pane label="我的粉丝" name="myFollowers"></el-tab-pane> -->
             </el-tabs>
         </main>
         <my-footer></my-footer>

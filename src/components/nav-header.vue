@@ -59,9 +59,7 @@
                 <!-- 登录后 -->
                 <span v-if="$store.getters.logined" class="greeting">欢迎你，{{ shortNickname }}</span>
                 <router-link to="/mine"><span v-if="$store.getters.logined">个人中心</span></router-link>
-                <span v-if="$store.getters.logined">
-                    <el-button @click="logOut">登出</el-button>
-                </span>
+                <span v-if="$store.getters.logined" @click="logOut">登出</span>
             </div>
             <el-button></el-button>
         </div>
@@ -126,7 +124,7 @@ export default {
             this.search = false;
             setTimeout(() => {
                 this.searchedBlogsShow = false;
-            }, 1000);
+            }, 100);
         },
         goToBlog(id) {
             this.searchedBlogsShow = true;
@@ -327,12 +325,12 @@ export default {
                 }
                 .search-box {
                     position: relative;
-                    width: 180px;
+                    width: 150px;
                     display: inline-block;
                     .search-input {
                         display: inline-block;
                         margin-left: 10px;
-                        width: 180px;
+                        width: 150px;
                         padding: 0 10px;
                         height: 30px;
                         border-radius: 5px;
