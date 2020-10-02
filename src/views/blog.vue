@@ -14,7 +14,7 @@
                 <div class="timestamp">
                     <span class="created"><i class="iconfont icon-59"></i>发布日期：{{ createTime }}</span>
                     <span class="updated"><i class="iconfont icon-59"></i>最近更新：{{ updateTime }}</span>
-                    <div class="collect">
+                    <div class="collect" v-if="$store.getters.currentUser != null && $store.getters.currentUser.userID != null">
                         <i class="el-icon-star-off" v-if="collected != true" @click="collect"></i>
                         <i class="el-icon-star-on" v-if="collected == true" @click="collect"></i>
                         <span>收藏此题</span>
@@ -45,7 +45,7 @@ import myFooter from '../components/my-footer';
 import toTopButton from '../components/to-top-button';
 import { getBlog } from '../api/blog';
 import { mavonEditor } from 'mavon-editor';
-
+import { collect, cancelCollection } from '../api/collection';
 
 export default {
     components: {
@@ -78,7 +78,61 @@ export default {
     methods: {
         collect() {
             this.collected = !this.collected;
-            // console.log(this.collected)
+            let that = this;
+            console.log(that.$store.getters.currentUser.userID, that.$route.params.id)
+            // return;
+            // 收藏
+            if(this.collected) {
+                collect({
+                    userID: that.$store.getters.currentUser.userID,
+                    blogID: that.$route.params.id
+                }).then(res => {
+                    if(res.code == 0) {
+                        that.$message({
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1000
+                        });
+                    }
+                    else {
+                        that.$message({
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1000
+                        });
+                    }
+                }).catch(err => that.$message({
+                    message: '收藏失败',
+                    type: 'error',
+                    duration: 1000
+                }));
+            }
+            //取消收藏
+            else {
+                cancelCollection({
+                    userID: that.$store.getters.currentUser.userID,
+                    blogID: that.$route.params.id
+                }).then(res => {
+                    if(res.code == 0) {
+                        that.$message({
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1000
+                        });
+                    }
+                    else {
+                        that.$message({
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1000
+                        });
+                    }
+                }).catch(err => that.$message({
+                    message: '取消收藏失败',
+                    type: 'error',
+                    duration: 1000
+                }));
+            }
         },
         getBlog() {
             let id = this.$route.params.id;
