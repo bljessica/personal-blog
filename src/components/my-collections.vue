@@ -21,7 +21,7 @@
 </template>
  
 <script>
-import { getBlogs } from '../api/blog';
+import { getCollectedBlogs } from '../api/blog';
 export default {
     data() {
         return {
@@ -51,7 +51,7 @@ export default {
         },
         getAllBlogs() {
             let that = this;
-            getBlogs({
+            getCollectedBlogs({
                 userID: that.$store.getters.currentUser.userID
             }).then(res => {
                 if(res.code == 0) {
@@ -78,7 +78,6 @@ export default {
                 this.pages[i] = this.blogs.slice(i * this.pageSize, (i + 1) * this.pageSize);
             }
             this.blogsShow = this.pages[this.currentPage];
-            // console.log(this.blogsShow, this.pages, this.blogs, this.pageNum)
         },
         prevPage() {
             if(this.currentPage == 0) {

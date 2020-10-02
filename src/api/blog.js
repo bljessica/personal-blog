@@ -34,6 +34,10 @@ function search(data) {
     return request(BASE_URL + '/search', 'GET', data);
 }
 
+function getCollectedBlogs(data) {
+    return request(BASE_URL + '/getCollectedBlogs', 'POST', data);
+}
+
 export {
     addBlog,
     getBlogs,
@@ -42,5 +46,6 @@ export {
     getAllLabels,
     getBlogsByKind,
     getBlog,
-    search
+    search,
+    getCollectedBlogs
 }

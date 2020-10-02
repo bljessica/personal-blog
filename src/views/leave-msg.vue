@@ -28,6 +28,7 @@
                 </li>
             </ul>
         </main>
+        <to-top-button></to-top-button>
         <my-footer></my-footer>
     </div>
 </template>
@@ -35,6 +36,7 @@
 <script>
 import navHeader from '../components/nav-header';
 import myFooter from '../components/my-footer';
+import toTopButton from '../components/to-top-button';
 import { saveComment, getComments } from '../api/comment';
 
 export default {
@@ -48,7 +50,8 @@ export default {
     },
     components: {
         navHeader,
-        myFooter
+        myFooter,
+        toTopButton
     },
     created() {
         this.getComments();

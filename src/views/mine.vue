@@ -28,11 +28,14 @@
                 <el-tab-pane label="我的博客" name="myBlogs" >
                     <my-blogs ref="blogs"></my-blogs>
                 </el-tab-pane>
-                <el-tab-pane label="我的收藏" name="myCollections"></el-tab-pane>
+                <el-tab-pane label="我的收藏" name="myCollections">
+                    <my-collections ref="collections"></my-collections>
+                </el-tab-pane>
                 <!-- <el-tab-pane label="我的关注" name="myFollowings"></el-tab-pane> -->
                 <!-- <el-tab-pane label="我的粉丝" name="myFollowers"></el-tab-pane> -->
             </el-tabs>
         </main>
+        <to-top-button></to-top-button>
         <my-footer></my-footer>
     </div>
 </template>
@@ -42,6 +45,8 @@ import navHeader from '../components/nav-header';
 import myFooter from '../components/my-footer';
 import addBlogBox from '../components/add-blog-box';
 import myBlogs from '../components/my-blogs';
+import toTopButton from '../components/to-top-button';
+import myCollections from '../components/my-collections';
 import { saveUserInfo } from '../api/user'
 
 export default {
@@ -49,7 +54,9 @@ export default {
         navHeader,
         myFooter,
         addBlogBox,
-        myBlogs
+        myBlogs,
+        myCollections,
+        toTopButton
     },
     data() {
         return {
@@ -134,6 +141,9 @@ export default {
         getblogs() {
             if(this.activeName == 'myBlogs') {
                 this.$refs.blogs.getAllBlogs();
+            }
+            else if(this.activeName == 'myCollections') {
+                this.$refs.collections.getAllBlogs();
             }
         }
     }
