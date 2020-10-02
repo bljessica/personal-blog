@@ -9,7 +9,12 @@ function cancelCollection(data) {
     return request(BASE_URL + '/cancelCollection', 'POST', data);
 }
 
+function isCollected(data) {
+    return request(BASE_URL + '/isCollected', 'POST', data);
+}
+
 export {
     collect,
-    cancelCollection
+    cancelCollection,
+    isCollected
 }

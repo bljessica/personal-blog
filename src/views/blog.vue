@@ -45,7 +45,7 @@ import myFooter from '../components/my-footer';
 import toTopButton from '../components/to-top-button';
 import { getBlog } from '../api/blog';
 import { mavonEditor } from 'mavon-editor';
-import { collect, cancelCollection } from '../api/collection';
+import { collect, cancelCollection, isCollected } from '../api/collection';
 
 export default {
     components: {
@@ -61,14 +61,13 @@ export default {
             createTime: '',
             updateTime: '',
             content: '',
-            // catalog: '',
-            // links: '',
             title: '',
             collected: false
         }
     },
     created() {
         this.getBlog();
+        this.isCollected();
     },
     watch: {
         '$route' (to, from) {
@@ -76,10 +75,34 @@ export default {
         }
     },
     methods: {
+        isCollected() {
+            let that = this;
+            isCollected({
+                userID: that.$store.getters.currentUser.userID,
+                blogID: that.$route.params.id
+            }).then(res => {
+                if(res.code == 0) {
+                    if(res.data.isCollected == true) {
+                        that.collected = true;
+                    }
+                }
+                else {
+                    that.$message({
+                        message: '获取收藏信息失败',
+                        type: 'error',
+                        duration: 1000
+                    });
+                }
+            }).catch(err => that.$message({
+                message: '获取收藏信息失败',
+                type: 'error',
+                duration: 1000
+            }));
+        },
         collect() {
             this.collected = !this.collected;
             let that = this;
-            console.log(that.$store.getters.currentUser.userID, that.$route.params.id)
+            // console.log(that.$store.getters.currentUser.userID, that.$route.params.id)
             // return;
             // 收藏
             if(this.collected) {
