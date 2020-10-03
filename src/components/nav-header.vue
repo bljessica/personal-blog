@@ -2,10 +2,10 @@
     <div class="header">
         <div class="header-container">
             <div class="title">
-                <a href=""> 
+                <router-link :to="'/'">
                     <i class="iconfont icon-custom-logo"></i>
                     <span>{{ title }}</span>
-                </a>
+                </router-link>
             </div>
             <!-- 首页导航栏 -->
             <ul class="nav">
