@@ -12,7 +12,6 @@ export default {
 
 <style lang="scss">
 * {
-    // min-width: 780px;
     margin: 0;
     padding: 0;
   }
@@ -30,5 +29,6 @@ export default {
   margin: 0;
   min-width: 700px;
   font-size: 16px;
+  min-width: 1010Px;//忽略单个属性的最简单的方法是在像素单元声明中使用大写
 }
 </style>
