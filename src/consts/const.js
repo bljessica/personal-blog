@@ -1,9 +1,9 @@
 // const NAV_ITEMS = ['主页', '标签', '分类', '关于', '我的书单'];
 const NAV_ITEMS = [
     { name: '主页', linkTo: '/' },
-    { name: '标签', linkTo: '/label' },
+    { name: '标签', linkTo: {name: 'label', params: {label: ''}} },
     // { name: '分类', linkTo: '/kind/ ' },
-    { name: '分类', linkTo: {name: 'kind', params: {kind: '/'}} },
+    { name: '分类', linkTo: {name: 'kind', params: {kind: ''}} },
     { name: '关于', linkTo: '/about' }
     // { name: '我的书单', linkTo: '/' },
 ];

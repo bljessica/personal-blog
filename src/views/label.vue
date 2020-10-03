@@ -33,7 +33,7 @@ export default {
         }
     },
     created() {
-        if(this.$route.params.label) {
+        if(this.$route.params.label.length != 0) {
             this.select = this.$route.params.label;
             this.changeSelect(this.select);
         }
@@ -45,6 +45,11 @@ export default {
         myFooter,
         toTopButton,
         blogContainer
+    },
+    watch: {
+        '$route' (to, from) {
+            this.$router.go(0);
+        }
     },
     methods: {
         changeSelect(label) {

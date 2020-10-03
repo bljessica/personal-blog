@@ -13,13 +13,16 @@
                     </div>
                     <div class="kind">
                         <i class="iconfont icon-shuqian"></i>
-                        <a href=""><span>{{ item.kind }}</span></a>
+                        <!-- <router-link :to="{name: 'kind', params: {kind: item.kind}}"><span>{{ item.kind }}</span></router-link> -->
+                        <span @click.stop="$router.push({name: 'kind', params: {kind: item.kind}})">{{ item.kind }}</span>
                     </div>
                 </div>
                 <ul class="labels">
                     <li v-for="(label, index) in item.labels" :key="index" class="label">
-                        <router-link :to="{name: 'label', params: {label: label}}"><span v-if="index < 3">{{ label }}</span></router-link>
-                        <router-link :to="'/label'"><span v-if="index == 3">...</span></router-link>
+                        <!-- <router-link :to="{name: 'label', params: {label: label}}"><span v-if="index < 3">{{ label }}</span></router-link>
+                        <router-link :to="'/label'"><span v-if="index == 3">...</span></router-link> -->
+                        <span v-if="index < 3" @click.stop="$router.push({name: 'label', params: {label: label}})">{{ label }}</span>
+                        <span v-if="index == 3" @click.stop="$router.push({name: 'label', params: {label: '/'}})">...</span>
                     </li>
                 </ul>
             </li>
@@ -187,7 +190,10 @@ export default {
                     span {
                         // display: inline-block;
                         padding: 0 10px;
-
+                        &:hover {
+                            // font-weight: bold;
+                            text-decoration: underline;
+                        }
                     }
                     height: 24px;
                     margin-top: 3px;
@@ -198,13 +204,13 @@ export default {
                     color: white;
                     font-size: 12px;
                     line-height: 24px;
-                    a {
-                        color: white;
-                        &:hover {
-                            // font-weight: bold;
-                            text-decoration: underline;
-                        }
-                    }
+                    // a {
+                    //     color: white;
+                    //     &:hover {
+                    //         // font-weight: bold;
+                    //         text-decoration: underline;
+                    //     }
+                    // }
                 }
             }
         }

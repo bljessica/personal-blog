@@ -18,7 +18,7 @@ export default new Router({
       component: () => import('@/views/index.vue')
     },
     {
-      path: '/label',
+      path: '/label:label',
       name: 'label',
       component: () => import('@/views/label.vue')
     },
