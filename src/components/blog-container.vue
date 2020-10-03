@@ -65,7 +65,7 @@ export default {
             for(let i = 0; i < this.pageNum; i++){
                 this.pages[i] = this.blogs.slice(i * this.pageSize, (i + 1) * this.pageSize);
             }
-            if(this.pageNum == 0) {
+            if(this.blogs.length == 0) {
                 this.blogsShow = this.pages = [];
             }
             else {

@@ -20,7 +20,7 @@
             </el-form>
             <div class="count">{{ comments.length }}评论</div>
             <ul class="comments">
-                <li v-for="(item, index) in comments" :key="index">
+                <li v-for="(item, index) in commentsShow" :key="index">
                     <img class="avatar" src="@/assets/user.jpg" alt="">
                     <span class="nickname">{{ item.nickname }}</span>
                     <span class="createTime">{{ item.createTime }}</span>
@@ -28,6 +28,9 @@
                 </li>
             </ul>
         </main>
+        <el-pagination v-if="comments.length != 0" background layout="prev, pager, next" :page-count="pageNum" @current-change="changeCurrent"
+            :current-page="currentPage + 1" @prev-click="prevPage" @next-click="nextPage">
+        </el-pagination>
         <to-top-button></to-top-button>
         <my-footer></my-footer>
     </div>
@@ -45,7 +48,12 @@ export default {
             nickname: '',
             email: '',
             content: '',
-            comments: []
+            comments: [],
+            pageSize: 10,
+            pages: [],
+            pageNum: 0,
+            currentPage: 0,
+            commentsShow: []
         }
     },
     components: {
@@ -62,6 +70,7 @@ export default {
             getComments().then(res => {
                 if(res.code == 0) {
                     that.comments = res.data;
+                    that.getPages();
                 }
                 else {
                     that.$message({
@@ -75,8 +84,14 @@ export default {
             }));
         },
         submitForm() {
-            console.log(1111)
             let that = this;
+            if(this.content.length == 0) {
+                that.$message({
+                    message: '内容不可为空',
+                    type: 'warning'
+                });
+                return;
+            }
             saveComment({
                 nickname: that.nickname,
                 email: that.email,
@@ -84,6 +99,8 @@ export default {
             }).then(res => {
                 if(res.code == 0) {
                     that.getComments();
+                    that.getPages();
+                    that.content = '';
                     that.$message({
                         message: '发表成功',
                         type: 'success'
@@ -96,7 +113,7 @@ export default {
                     });
                 }
             }).catch(err => that.$message({
-                message: '发表失败',
+                message: '发表失败' + err,
                 type: 'error'
             }));
         },
@@ -128,6 +145,36 @@ export default {
                     type: 'info'
                 });
             });
+        },
+        getPages() {
+            this.pageNum = Math.ceil(this.comments.length / this.pageSize);
+            //分页笔记数组
+            for(let i = 0; i < this.pageNum; i++){
+                this.pages[i] = this.comments.slice(i * this.pageSize, (i + 1) * this.pageSize);
+            }
+            if(this.comments.length == 0) {
+                this.commentsShow = this.pages = [];
+            }
+            else {
+                this.commentsShow = this.pages[this.currentPage];
+            }
+
+        },
+        prevPage() {
+            if(this.currentPage == 0) {
+                return;
+            }
+            this.commentsShow = this.pages[--this.currentPage];
+        },
+        nextPage() {
+            if(this.currentPage == this.pageNum - 1) {
+                return;
+            }
+            this.commentsShow = this.pages[++this.currentPage];
+        },
+        changeCurrent(current) {
+            this.currentPage = current - 1;
+            this.commentsShow = this.pages[current - 1];
         }
     }
 }
@@ -136,7 +183,6 @@ export default {
 <style lang="scss" scoped>
     .main {
         width: 600px;
-        // height: 260px;
         padding: 20px 50px;
         position: relative;
         top: -30px;
@@ -161,8 +207,7 @@ export default {
             li {
                 position: relative;
                 height: 130px;
-                // width: 100%;
-                // display: inline-block;
+                width: 100%;
                 border-top: 1px solid #E0E0E0;
                 font-size: 14px;
                 .avatar {
@@ -194,10 +239,23 @@ export default {
                     font-size: 12px;
                 }
                 .content {
-                    // color:#1DA7DA;
+                    display: inline-block;
+                    line-height: 20px;
+                    height: 60px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;//（行数）
+                    -webkit-box-orient: vertical;
+                    white-space:pre-wrap;
+                    word-wrap : break-word ;
+                    
+                    text-align: left;
                     position: absolute;
                     left: 70px;
                     top: 60px;
+                    bottom: 0;
+                    right: 0;
                     color: rgba(0, 0, 0, 0.6);
                 }
             }
