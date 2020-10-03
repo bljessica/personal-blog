@@ -39,6 +39,7 @@ export default {
     created() {
         if(this.$route.params.kind) {
             this.select = this.$route.params.kind;
+            this.selectKind(this.select);
         }
     },
     watch: {
